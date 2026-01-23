@@ -201,9 +201,9 @@
 
   /* Glass morphism */
   .glass {
-    background: hsl(var(--card) / 0.6);
-    backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--border) / 0.5);
+  background: hsl(var(--card) / 0.75);
+  backdrop-filter: blur(20px);
+  border: 1px solid hsl(var(--border) / 0.6);
   }
 
   .glass-strong {

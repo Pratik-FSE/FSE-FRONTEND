@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const categories = [
   { id: 'all', label: 'All' },
@@ -16,6 +17,7 @@ interface CategoryFilterProps {
 
 const CategoryFilter = ({ onFilterChange }: CategoryFilterProps) => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const { theme } = useTheme();
 
   const handleClick = (categoryId: string) => {
     setActiveCategory(categoryId);
@@ -33,33 +35,49 @@ const CategoryFilter = ({ onFilterChange }: CategoryFilterProps) => {
         <motion.button
           key={category.id}
           onClick={() => handleClick(category.id)}
-          className={`relative px-6 py-3 rounded-full font-medium transition-colors ${
-            activeCategory === category.id
-              ? 'text-primary-foreground'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          className={`
+            relative px-6 py-3 rounded-full font-medium
+            transition-colors overflow-hidden
+            ${
+              activeCategory === category.id
+                ? 'text-foreground'
+                : 'text-muted-foreground hover:text-foreground'
+            }
+          `}
         >
-          {/* Background pill */}
+          {/* Active background */}
           {activeCategory === category.id && (
             <motion.div
               layoutId="activeCategory"
-              className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-secondary rounded-full"
+              className={`
+                absolute inset-0 rounded-full
+                ${
+                  theme === 'dark'
+                    ? 'bg-gradient-to-r from-primary via-accent to-secondary'
+                    : 'bg-gradient-to-r from-primary to-secondary'
+                }
+              `}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             />
           )}
-          
-          {/* Hover state for inactive */}
+
+          {/* Hover background (inactive only) */}
           {activeCategory !== category.id && (
             <motion.div
               initial={{ opacity: 0 }}
               whileHover={{ opacity: 1 }}
-              className="absolute inset-0 bg-muted rounded-full"
+              className="
+                absolute inset-0 rounded-full
+                bg-muted
+              "
             />
           )}
-          
-          <span className="relative z-10">{category.label}</span>
+
+          <span className="relative z-10">
+            {category.label}
+          </span>
         </motion.button>
       ))}
     </motion.div>

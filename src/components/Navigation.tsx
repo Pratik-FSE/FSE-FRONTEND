@@ -21,6 +21,7 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeHover, setActiveHover] = useState<string | null>(null);
+
   const location = useLocation();
   const navigate = useNavigate();
   const { theme } = useTheme();
@@ -28,9 +29,7 @@ const Navigation = () => {
   const currentLogo = theme === 'dark' ? logoDark : logoLight;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -52,15 +51,17 @@ const Navigation = () => {
 
   return (
     <>
+      {/* HEADER */}
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-background/95 backdrop-blur-sm shadow-sm py-3'
-            : 'bg-background py-5'
-        }`}
+        className={`
+          fixed top-0 left-0 right-0 z-50 transition-all duration-500
+          ${isScrolled
+            ? 'bg-white/90 dark:bg-background/95 backdrop-blur-md shadow-sm py-3'
+            : 'bg-white dark:bg-background py-5'}
+        `}
       >
         <nav className="container mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
@@ -86,7 +87,7 @@ const Navigation = () => {
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* DESKTOP NAV */}
           <div className="hidden lg:flex items-center gap-1">
             <ThemeToggle />
 
@@ -96,17 +97,21 @@ const Navigation = () => {
                 onClick={() => handleNavClick(item)}
                 onMouseEnter={() => setActiveHover(item.label)}
                 onMouseLeave={() => setActiveHover(null)}
-                className={`relative px-4 py-2 font-body text-sm font-medium overflow-hidden transition-colors ${
-                  location.pathname === item.href
-                    ? 'text-foreground'
-                    : 'text-muted-foreground hover:text-primary dark:hover:text-foreground'
-                }`}
+                className={`
+                  relative px-4 py-2 font-body text-sm font-medium overflow-hidden
+                  transition-colors
+                  ${
+                    location.pathname === item.href
+                      ? 'text-blue-600 dark:text-foreground'
+                      : 'text-gray-600 hover:text-blue-600 dark:text-muted-foreground dark:hover:text-foreground'
+                  }
+                `}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index, duration: 0.4 }}
                 data-cursor-hover
               >
-                {/* Text hover animation */}
+                {/* Letter hover */}
                 <span className="relative inline-block overflow-hidden">
                   <motion.span
                     className="inline-block"
@@ -117,11 +122,7 @@ const Navigation = () => {
                     {item.label}
                   </motion.span>
                   <motion.span
-                    className="
-                      absolute left-0
-                      text-secondary
-                      dark:text-gradient
-                    "
+                    className="absolute left-0 text-orange-500 dark:text-gradient"
                     variants={letterVariantsSecond}
                     initial="initial"
                     animate={activeHover === item.label ? 'hover' : 'initial'}
@@ -130,14 +131,13 @@ const Navigation = () => {
                   </motion.span>
                 </span>
 
-                {/* Active indicator */}
+                {/* Active underline */}
                 {location.pathname === item.href && (
                   <motion.div
                     layoutId="activeNav"
                     className="
                       absolute bottom-0 left-2 right-2 h-0.5
-                      bg-secondary
-                      dark:bg-gradient-neon
+                      bg-orange-500 dark:bg-gradient-neon
                     "
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
@@ -147,8 +147,7 @@ const Navigation = () => {
                 <motion.div
                   className="
                     absolute inset-0 rounded-lg
-                    bg-primary/5
-                    dark:bg-primary/10
+                    bg-blue-500/5 dark:bg-primary/10
                   "
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{
@@ -160,13 +159,13 @@ const Navigation = () => {
               </motion.button>
             ))}
 
-            {/* Book Now CTA */}
+            {/* CTA */}
             <motion.button
               onClick={() => navigate('/contact')}
               className="
                 relative ml-4 px-6 py-2.5 rounded-full overflow-hidden
-                bg-primary text-primary-foreground
-                hover:bg-secondary hover:text-secondary-foreground
+                bg-blue-600 text-white
+                hover:bg-orange-500
                 dark:bg-gradient-neon dark:text-foreground
                 transition-colors
               "
@@ -177,7 +176,7 @@ const Navigation = () => {
               whileTap={{ scale: 0.95 }}
               data-cursor-hover
             >
-              {/* Dark shimmer only */}
+              {/* Dark shimmer */}
               <motion.div
                 className="
                   absolute inset-0 hidden dark:block
@@ -186,13 +185,11 @@ const Navigation = () => {
                 animate={{ x: ['-100%', '100%'] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
               />
-              <span className="relative font-medium text-sm">
-                Book Now
-              </span>
+              <span className="relative font-medium text-sm">Book Now</span>
             </motion.button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* MOBILE TOGGLE */}
           <motion.button
             className="lg:hidden relative p-2 text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -226,7 +223,7 @@ const Navigation = () => {
         </nav>
       </motion.header>
 
-      {/* Mobile Menu Overlay */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -234,7 +231,7 @@ const Navigation = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-40 bg-white/95 dark:bg-background/98 backdrop-blur-xl lg:hidden"
           >
             <nav className="flex flex-col items-center justify-center min-h-screen gap-6 py-24 px-6">
               {navItems.map((item, index) => (
@@ -243,7 +240,7 @@ const Navigation = () => {
                   onClick={() => handleNavClick(item)}
                   className="
                     font-display text-3xl md:text-4xl font-bold
-                    text-foreground hover:text-secondary
+                    text-blue-600 hover:text-orange-500
                     dark:text-gradient
                   "
                   initial={{ opacity: 0, y: 30 }}

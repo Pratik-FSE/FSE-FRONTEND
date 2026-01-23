@@ -5,18 +5,21 @@ import TechnologyHero from '@/components/technology/TechnologyHero';
 import TechStack from '@/components/technology/TechStack';
 import TechShowcase from '@/components/technology/TechShowcase';
 import { motion } from 'framer-motion';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const Technology = () => {
+  const { theme } = useTheme();
+
   return (
     <div className="relative min-h-screen bg-background overflow-x-hidden">
       <CustomCursor />
       <Navigation />
-      
+
       <main>
         <TechnologyHero />
         <TechStack />
         <TechShowcase />
-        
+
         {/* Innovation Banner */}
         <motion.section
           initial={{ opacity: 0 }}
@@ -24,14 +27,22 @@ const Technology = () => {
           viewport={{ once: true }}
           className="py-32 px-4 relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10" />
-          
+          <div
+            className={`absolute inset-0 ${
+              theme === 'dark'
+                ? 'bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10'
+                : 'bg-gradient-to-r from-primary/15 via-secondary/10 to-primary/15'
+            }`}
+          />
+
           {/* Animated particles */}
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(20)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-2 h-2 rounded-full bg-primary/30"
+                className={`absolute w-2 h-2 rounded-full ${
+                  theme === 'dark' ? 'bg-primary/30' : 'bg-secondary/40'
+                }`}
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
@@ -48,7 +59,7 @@ const Technology = () => {
               />
             ))}
           </div>
-          
+
           <div className="max-w-5xl mx-auto text-center relative z-10">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -56,9 +67,12 @@ const Technology = () => {
               viewport={{ once: true }}
               className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-8"
             >
-              Innovation is in our <span className="text-gradient">DNA</span>
+              Innovation is in our{' '}
+              <span className={theme === 'dark' ? 'text-gradient' : 'text-primary'}>
+                DNA
+              </span>
             </motion.h2>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -66,11 +80,11 @@ const Technology = () => {
               transition={{ delay: 0.2 }}
               className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto"
             >
-              We continuously invest in R&D to stay ahead of the curve, 
-              ensuring our clients always have access to the latest and 
-              greatest in experiential technology.
+              We continuously invest in R&D to stay ahead of the curve, ensuring our
+              clients always have access to the latest and greatest in experiential
+              technology.
             </motion.p>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -103,7 +117,7 @@ const Technology = () => {
           </div>
         </motion.section>
       </main>
-      
+
       <Footer />
     </div>
   );

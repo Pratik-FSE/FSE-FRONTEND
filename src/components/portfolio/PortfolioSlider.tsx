@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface SlideItem {
   id: number;
@@ -22,6 +23,7 @@ const PortfolioSlider = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const { theme } = useTheme();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -38,7 +40,6 @@ const PortfolioSlider = () => {
     setCurrentSlide(newIndex);
   };
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
@@ -70,7 +71,10 @@ const PortfolioSlider = () => {
         >
           <div>
             <h2 className="text-4xl md:text-6xl font-display font-bold">
-              Cinematic <span className="text-gradient">Showcase</span>
+              Cinematic{' '}
+              <span className={theme === 'dark' ? 'text-gradient' : 'text-primary'}>
+                Showcase
+              </span>
             </h2>
             <p className="text-muted-foreground mt-4 max-w-md">
               Drag or use arrows to explore our featured installations
@@ -108,73 +112,75 @@ const PortfolioSlider = () => {
             dragConstraints={{ left: -((slides.length - 1) * 600), right: 0 }}
             onDragStart={() => setIsDragging(true)}
             onDragEnd={() => setIsDragging(false)}
-            animate={{ x: -currentSlide * (typeof window !== 'undefined' && window.innerWidth < 768 ? 320 : 600) }}
+            animate={{
+              x: -currentSlide * (typeof window !== 'undefined' && window.innerWidth < 768 ? 320 : 600),
+            }}
             transition={{ type: 'spring', stiffness: 100, damping: 30 }}
             className="flex gap-8 cursor-grab active:cursor-grabbing"
           >
-            {slides.map((slide, index) => (
-              <motion.div
-                key={slide.id}
-                className="flex-shrink-0 w-[300px] md:w-[560px] h-[400px] md:h-[600px] relative group"
-                animate={{
-                  scale: currentSlide === index ? 1 : 0.9,
-                  opacity: currentSlide === index ? 1 : 0.5,
-                }}
-                transition={{ duration: 0.5 }}
-                onClick={() => !isDragging && goToSlide(index)}
-              >
-                {/* Card background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${slide.gradient} opacity-30 rounded-3xl`} />
-                <div className="absolute inset-0 glass rounded-3xl overflow-hidden">
-                  {/* Animated circles */}
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 180, 360],
-                    }}
-                    transition={{ duration: 20, repeat: Infinity }}
-                    className={`absolute -top-20 -right-20 w-60 h-60 bg-gradient-to-br ${slide.gradient} opacity-30 rounded-full blur-3xl`}
-                  />
-                  <motion.div
-                    animate={{
-                      scale: [1.2, 1, 1.2],
-                      rotate: [360, 180, 0],
-                    }}
-                    transition={{ duration: 15, repeat: Infinity }}
-                    className={`absolute -bottom-20 -left-20 w-60 h-60 bg-gradient-to-br ${slide.gradient} opacity-20 rounded-full blur-3xl`}
-                  />
+            {slides.map((slide, index) => {
+              const activeGradient =
+                theme === 'dark'
+                  ? slide.gradient
+                  : 'from-primary to-secondary';
 
-                  {/* Content */}
-                  <div className="relative h-full p-8 md:p-12 flex flex-col justify-end z-10">
-                    <motion.span
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      className="text-sm text-primary uppercase tracking-widest mb-4"
-                    >
-                      {slide.category}
-                    </motion.span>
-                    <motion.h3
-                      className="text-3xl md:text-5xl font-display font-bold leading-tight"
-                    >
-                      {slide.title}
-                    </motion.h3>
+              return (
+                <motion.div
+                  key={slide.id}
+                  className="flex-shrink-0 w-[300px] md:w-[560px] h-[400px] md:h-[600px] relative group"
+                  animate={{
+                    scale: currentSlide === index ? 1 : 0.9,
+                    opacity: currentSlide === index ? 1 : 0.5,
+                  }}
+                  transition={{ duration: 0.5 }}
+                  onClick={() => !isDragging && goToSlide(index)}
+                >
+                  {/* Card background */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${activeGradient} opacity-30 rounded-3xl`} />
+
+                  <div className="absolute inset-0 glass rounded-3xl overflow-hidden">
+                    {/* Animated circles */}
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+                      transition={{ duration: 20, repeat: Infinity }}
+                      className={`absolute -top-20 -right-20 w-60 h-60 bg-gradient-to-br ${activeGradient} opacity-30 rounded-full blur-3xl`}
+                    />
+                    <motion.div
+                      animate={{ scale: [1.2, 1, 1.2], rotate: [360, 180, 0] }}
+                      transition={{ duration: 15, repeat: Infinity }}
+                      className={`absolute -bottom-20 -left-20 w-60 h-60 bg-gradient-to-br ${activeGradient} opacity-20 rounded-full blur-3xl`}
+                    />
+
+                    {/* Content */}
+                    <div className="relative h-full p-8 md:p-12 flex flex-col justify-end z-10">
+                      <motion.span
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        className="text-sm text-primary uppercase tracking-widest mb-4"
+                      >
+                        {slide.category}
+                      </motion.span>
+                      <motion.h3 className="text-3xl md:text-5xl font-display font-bold leading-tight">
+                        {slide.title}
+                      </motion.h3>
+                    </div>
+
+                    {/* Hover border glow */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                      className="absolute inset-0 rounded-3xl border-2 border-primary/40 pointer-events-none"
+                      style={{ boxShadow: '0 0 40px hsl(var(--primary) / 0.25)' }}
+                    />
                   </div>
 
-                  {/* Hover border glow */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    className="absolute inset-0 rounded-3xl border-2 border-primary/50 pointer-events-none"
-                    style={{ boxShadow: '0 0 40px hsl(var(--primary) / 0.3)' }}
-                  />
-                </div>
-
-                {/* Slide number */}
-                <div className="absolute -bottom-6 left-8 text-8xl font-display font-bold text-muted/20">
-                  {String(index + 1).padStart(2, '0')}
-                </div>
-              </motion.div>
-            ))}
+                  {/* Slide number */}
+                  <div className="absolute -bottom-6 left-8 text-8xl font-display font-bold text-muted/20">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
 

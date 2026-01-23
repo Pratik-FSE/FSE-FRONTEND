@@ -1,63 +1,89 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Cpu, Eye, Gamepad2, Camera, Sparkles, Zap, Box, Monitor } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const technologies = [
   {
     icon: Eye,
     title: 'AR/VR Technology',
-    description: 'Immersive augmented and virtual reality experiences using Meta Quest, Apple Vision Pro, and custom AR solutions.',
-    gradient: 'from-primary to-accent',
+    description:
+      'Immersive augmented and virtual reality experiences using Meta Quest, Apple Vision Pro, and custom AR solutions.',
+    gradientLight: 'from-blue-600 to-orange-500',
+    gradientDark: 'from-primary to-accent',
   },
   {
     icon: Cpu,
     title: 'AI & Machine Learning',
-    description: 'Real-time AI-powered photo transformations, face detection, and generative art installations.',
-    gradient: 'from-secondary to-primary',
+    description:
+      'Real-time AI-powered photo transformations, face detection, and generative art installations.',
+    gradientLight: 'from-orange-500 to-blue-600',
+    gradientDark: 'from-secondary to-primary',
   },
   {
     icon: Gamepad2,
     title: 'Gaming Infrastructure',
-    description: 'High-performance gaming setups with PS5, Xbox Series X, racing simulators, and esports tournament systems.',
-    gradient: 'from-accent to-secondary',
+    description:
+      'High-performance gaming setups with PS5, Xbox Series X, racing simulators, and esports tournament systems.',
+    gradientLight: 'from-blue-600 to-orange-500',
+    gradientDark: 'from-accent to-secondary',
   },
   {
     icon: Camera,
     title: 'Computer Vision',
-    description: 'Advanced motion tracking, gesture recognition, and real-time body pose detection.',
-    gradient: 'from-neon-cyan to-secondary',
+    description:
+      'Advanced motion tracking, gesture recognition, and real-time body pose detection.',
+    gradientLight: 'from-orange-500 to-blue-600',
+    gradientDark: 'from-neon-cyan to-secondary',
   },
   {
     icon: Monitor,
     title: 'Display Technology',
-    description: 'LED walls, anamorphic displays, holographic screens, and projection mapping systems.',
-    gradient: 'from-primary to-neon-pink',
+    description:
+      'LED walls, anamorphic displays, holographic screens, and projection mapping systems.',
+    gradientLight: 'from-blue-600 to-orange-500',
+    gradientDark: 'from-primary to-neon-pink',
   },
   {
     icon: Sparkles,
     title: 'Real-Time Rendering',
-    description: 'Unreal Engine and Unity-powered real-time graphics and interactive 3D experiences.',
-    gradient: 'from-accent to-primary',
+    description:
+      'Unreal Engine and Unity-powered real-time graphics and interactive 3D experiences.',
+    gradientLight: 'from-orange-500 to-blue-600',
+    gradientDark: 'from-accent to-primary',
   },
   {
     icon: Zap,
     title: 'Interactive Systems',
-    description: 'Touch screens, motion sensors, and custom hardware for interactive installations.',
-    gradient: 'from-secondary to-accent',
+    description:
+      'Touch screens, motion sensors, and custom hardware for interactive installations.',
+    gradientLight: 'from-blue-600 to-orange-500',
+    gradientDark: 'from-secondary to-accent',
   },
   {
     icon: Box,
     title: 'Physical Computing',
-    description: 'Arduino, Raspberry Pi, and custom electronics for physical-digital hybrid experiences.',
-    gradient: 'from-neon-pink to-primary',
+    description:
+      'Arduino, Raspberry Pi, and custom electronics for physical-digital hybrid experiences.',
+    gradientLight: 'from-orange-500 to-blue-600',
+    gradientDark: 'from-neon-pink to-primary',
   },
 ];
 
-const TechCard = ({ tech, index }: { tech: typeof technologies[0]; index: number }) => {
+const TechCard = ({
+  tech,
+  index,
+}: {
+  tech: (typeof technologies)[0];
+  index: number;
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const { theme } = useTheme();
 
   const Icon = tech.icon;
+  const gradient =
+    theme === 'dark' ? tech.gradientDark : tech.gradientLight;
 
   return (
     <motion.div
@@ -72,23 +98,21 @@ const TechCard = ({ tech, index }: { tech: typeof technologies[0]; index: number
       <motion.div
         initial={{ opacity: 0 }}
         whileHover={{ opacity: 1 }}
-        className={`absolute -inset-4 bg-gradient-to-r ${tech.gradient} opacity-20 blur-2xl rounded-3xl transition-opacity`}
+        className={`absolute -inset-4 bg-gradient-to-r ${gradient} opacity-20 blur-2xl rounded-3xl transition-opacity`}
       />
 
       <div className="relative glass rounded-2xl p-8 h-full overflow-hidden">
         {/* Animated background */}
         <motion.div
-          animate={{
-            rotate: [0, 360],
-          }}
+          animate={{ rotate: [0, 360] }}
           transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${tech.gradient} opacity-10 rounded-full blur-3xl`}
+          className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${gradient} opacity-10 rounded-full blur-3xl`}
         />
 
         {/* Icon */}
         <motion.div
           whileHover={{ scale: 1.1, rotate: 5 }}
-          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${tech.gradient} flex items-center justify-center mb-6`}
+          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-6`}
         >
           <Icon className="w-8 h-8 text-white" />
         </motion.div>
@@ -105,7 +129,7 @@ const TechCard = ({ tech, index }: { tech: typeof technologies[0]; index: number
         <motion.div
           initial={{ width: 0 }}
           whileHover={{ width: '100%' }}
-          className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${tech.gradient}`}
+          className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${gradient}`}
         />
       </div>
     </motion.div>
@@ -128,8 +152,8 @@ const TechStack = () => {
           Technologies We <span className="text-gradient">Master</span>
         </h2>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          From AR/VR to AI, we leverage cutting-edge technology to create 
-          experiences that push the boundaries of what's possible.
+          From AR/VR to AI, we leverage cutting-edge technology to create
+          experiences that push the boundaries of what&apos;s possible.
         </p>
       </motion.div>
 

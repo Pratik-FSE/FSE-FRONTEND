@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -13,12 +18,16 @@ export default {
       },
     },
     extend: {
+      /* =======================
+         COLORS
+      ======================= */
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -47,6 +56,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -57,22 +67,50 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+
         neon: {
           purple: "hsl(var(--neon-purple))",
           cyan: "hsl(var(--neon-cyan))",
           magenta: "hsl(var(--neon-magenta))",
           pink: "hsl(var(--neon-pink))",
         },
+
+        /* 🔥 NEW — HIGH CONTRAST HERO TEXT */
+        hero: {
+          DEFAULT: "hsl(var(--foreground))",
+          muted: "hsl(var(--foreground) / 0.7)",
+        },
       },
+
+      /* =======================
+         Z-INDEX SCALE (SAFE)
+      ======================= */
+      zIndex: {
+        canvas: "0",
+        overlay: "10",
+        content: "20",
+      },
+
+      /* =======================
+         TYPOGRAPHY
+      ======================= */
       fontFamily: {
         display: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-body)", "sans-serif"],
       },
+
+      /* =======================
+         RADIUS
+      ======================= */
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+
+      /* =======================
+         KEYFRAMES
+      ======================= */
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -107,10 +145,18 @@ export default {
           "100%": { transform: "rotateY(360deg)" },
         },
         "morph": {
-          "0%, 100%": { borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%" },
-          "50%": { borderRadius: "30% 60% 70% 40% / 50% 60% 30% 60%" },
+          "0%, 100%": {
+            borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
+          },
+          "50%": {
+            borderRadius: "30% 60% 70% 40% / 50% 60% 30% 60%",
+          },
         },
       },
+
+      /* =======================
+         ANIMATIONS
+      ======================= */
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
@@ -122,10 +168,16 @@ export default {
         "rotate-y": "rotate-y 20s linear infinite",
         "morph": "morph 8s ease-in-out infinite",
       },
+
+      /* =======================
+         BACKGROUNDS
+      ======================= */
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "gradient-neon": "linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-magenta)), hsl(var(--neon-cyan)))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-neon":
+          "linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--neon-magenta)), hsl(var(--neon-cyan)))",
       },
     },
   },

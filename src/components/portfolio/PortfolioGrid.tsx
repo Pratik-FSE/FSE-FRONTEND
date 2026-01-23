@@ -55,7 +55,7 @@ const projects: Project[] = [
       { label: 'Attendees', value: '25K' },
       { label: 'Social Reach', value: '2M+' },
     ],
-    color: 'from-accent to-neon-pink',
+    color: 'from-accent to-secondary',
     size: 'small',
   },
   {
@@ -69,7 +69,7 @@ const projects: Project[] = [
       { label: 'Views', value: '500K+' },
       { label: 'PR Value', value: '₹5Cr' },
     ],
-    color: 'from-neon-cyan to-secondary',
+    color: 'from-primary to-secondary',
     size: 'small',
   },
   {
@@ -83,7 +83,7 @@ const projects: Project[] = [
       { label: 'Photos', value: '100K+' },
       { label: 'Downloads', value: '45K' },
     ],
-    color: 'from-primary to-secondary',
+    color: 'from-secondary to-accent',
     size: 'medium',
   },
   {
@@ -102,7 +102,15 @@ const projects: Project[] = [
   },
 ];
 
-const ProjectCard = ({ project, index, onSelect }: { project: Project; index: number; onSelect: () => void }) => {
+const ProjectCard = ({
+  project,
+  index,
+  onSelect,
+}: {
+  project: Project;
+  index: number;
+  onSelect: () => void;
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isHovered, setIsHovered] = useState(false);
@@ -124,104 +132,89 @@ const ProjectCard = ({ project, index, onSelect }: { project: Project; index: nu
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
+      transition={{ duration: 0.8, delay: index * 0.08 }}
       className={`${sizeClasses[project.size]} ${heightClasses[project.size]} relative group cursor-pointer`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onSelect}
     >
-      {/* Background gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-20 rounded-2xl transition-opacity duration-500 group-hover:opacity-40`} />
-      
-      {/* Glass card */}
-      <div className="absolute inset-0 glass rounded-2xl overflow-hidden">
-        {/* Animated noise overlay */}
-        <div className="absolute inset-0 noise-overlay opacity-50" />
-        
-        {/* Hover distortion effect */}
-        <motion.div
-          animate={{ 
-            scale: isHovered ? 1.1 : 1,
-            filter: isHovered ? 'blur(0px)' : 'blur(2px)',
-          }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <div className={`w-32 h-32 bg-gradient-to-br ${project.color} rounded-full opacity-30 blur-3xl`} />
-        </motion.div>
+      {/* Light-mode subtle tint / Dark-mode gradient */}
+      <div
+        className={`
+          absolute inset-0 rounded-2xl transition-opacity duration-500
+          bg-primary/5 group-hover:bg-secondary/10
+          dark:bg-gradient-to-br dark:${project.color} dark:opacity-20 dark:group-hover:opacity-40
+        `}
+      />
+
+      {/* Card */}
+      <div className="absolute inset-0 glass rounded-2xl overflow-hidden border border-border/40 dark:border-border">
+        <div className="absolute inset-0 noise-overlay opacity-30 dark:opacity-50" />
 
         {/* Content */}
         <div className="relative h-full p-6 md:p-8 flex flex-col justify-between z-10">
           {/* Top */}
           <div className="flex justify-between items-start">
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="px-4 py-2 bg-background/50 rounded-full text-sm text-muted-foreground backdrop-blur-sm"
-            >
+            <span className="px-4 py-2 rounded-full text-sm bg-background/70 text-muted-foreground backdrop-blur-sm">
               {project.category}
-            </motion.span>
-            <motion.div
-              whileHover={{ scale: 1.2, rotate: 45 }}
-              className="w-12 h-12 rounded-full glass flex items-center justify-center"
-            >
-              <ArrowUpRight className="w-5 h-5 text-foreground" />
-            </motion.div>
+            </span>
+            <div className="w-12 h-12 rounded-full glass flex items-center justify-center">
+              <ArrowUpRight className="w-5 h-5 text-primary group-hover:text-secondary transition-colors" />
+            </div>
           </div>
 
           {/* Bottom */}
           <div>
             <motion.h3
-              animate={{ y: isHovered ? -10 : 0 }}
-              className="text-2xl md:text-4xl font-display font-bold mb-2"
+              animate={{ y: isHovered ? -6 : 0 }}
+              className="text-2xl md:text-4xl font-display font-bold mb-2 text-foreground"
             >
               {project.title}
             </motion.h3>
-            <motion.div
-              animate={{ opacity: isHovered ? 1 : 0.7, y: isHovered ? -5 : 0 }}
-              className="flex gap-4 text-sm text-muted-foreground"
-            >
+
+            <div className="flex gap-4 text-sm text-muted-foreground">
               <span>{project.client}</span>
               <span>•</span>
               <span>{project.location}</span>
               <span>•</span>
               <span>{project.year}</span>
-            </motion.div>
+            </div>
 
-            {/* Stats - visible on hover */}
+            {/* Stats */}
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: isHovered ? 'auto' : 0, opacity: isHovered ? 1 : 0 }}
+              animate={{
+                height: isHovered ? 'auto' : 0,
+                opacity: isHovered ? 1 : 0,
+              }}
               transition={{ duration: 0.3 }}
               className="overflow-hidden mt-4"
             >
               <div className="flex gap-6 pt-4 border-t border-border/30">
                 {project.stats.map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <div className="text-2xl font-display font-bold text-gradient">{stat.value}</div>
-                    <div className="text-xs text-muted-foreground">{stat.label}</div>
-                  </motion.div>
+                  <div key={i}>
+                    <div className="text-2xl font-display font-bold text-primary dark:text-gradient">
+                      {stat.value}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {stat.label}
+                    </div>
+                  </div>
                 ))}
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* Animated border */}
+        {/* Hover border */}
         <motion.div
           animate={{ opacity: isHovered ? 1 : 0 }}
           className="absolute inset-0 rounded-2xl pointer-events-none"
           style={{
-            background: `linear-gradient(135deg, hsl(var(--primary) / 0.5) 0%, transparent 50%, hsl(var(--secondary) / 0.5) 100%)`,
+            background:
+              'linear-gradient(135deg, hsl(var(--primary) / 0.4), transparent 50%, hsl(var(--secondary) / 0.4))',
             padding: '2px',
             mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-            maskComposite: 'xor',
             WebkitMaskComposite: 'xor',
           }}
         />
@@ -230,8 +223,15 @@ const ProjectCard = ({ project, index, onSelect }: { project: Project; index: nu
   );
 };
 
-// Fullscreen Project Modal
-const ProjectModal = ({ project, onClose }: { project: Project | null; onClose: () => void }) => {
+// ---------- MODAL (unchanged structurally) ----------
+
+const ProjectModal = ({
+  project,
+  onClose,
+}: {
+  project: Project | null;
+  onClose: () => void;
+}) => {
   if (!project) return null;
 
   return (
@@ -250,105 +250,52 @@ const ProjectModal = ({ project, onClose }: { project: Project | null; onClose: 
         className="h-full w-full flex flex-col lg:flex-row"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Left - Visual */}
         <div className="flex-1 relative overflow-hidden">
-          <motion.div
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-30`}
-          />
+          <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-30`} />
           <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.3, type: 'spring' }}
-              className="w-24 h-24 rounded-full bg-foreground/10 flex items-center justify-center cursor-pointer group"
-            >
-              <Play className="w-10 h-10 text-foreground group-hover:scale-110 transition-transform" />
-            </motion.div>
+            <div className="w-24 h-24 rounded-full bg-foreground/10 flex items-center justify-center">
+              <Play className="w-10 h-10 text-foreground" />
+            </div>
           </div>
           <div className="absolute inset-0 noise-overlay" />
         </div>
 
-        {/* Right - Content */}
         <div className="flex-1 p-8 lg:p-16 flex flex-col justify-center relative">
-          {/* Close button */}
-          <motion.button
-            whileHover={{ scale: 1.1, rotate: 90 }}
-            whileTap={{ scale: 0.9 }}
+          <button
             onClick={onClose}
             className="absolute top-8 right-8 w-12 h-12 rounded-full glass flex items-center justify-center"
           >
             <X className="w-6 h-6" />
-          </motion.button>
+          </button>
 
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-primary mb-4"
-          >
-            {project.category}
-          </motion.span>
+          <span className="text-primary mb-4">{project.category}</span>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-5xl md:text-7xl font-display font-bold mb-6"
-          >
+          <h2 className="text-5xl md:text-7xl font-display font-bold mb-6">
             {project.title}
-          </motion.h2>
+          </h2>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex gap-6 text-muted-foreground mb-12"
-          >
-            <span>{project.client}</span>
-            <span>•</span>
-            <span>{project.location}</span>
-            <span>•</span>
+          <div className="flex gap-6 text-muted-foreground mb-12">
+            <span>{project.client}</span>•<span>{project.location}</span>•
             <span>{project.year}</span>
-          </motion.div>
+          </div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="grid grid-cols-3 gap-8 mb-12"
-          >
+          <div className="grid grid-cols-3 gap-8 mb-12">
             {project.stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 + i * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-4xl md:text-5xl font-display font-bold text-gradient mb-2">
+              <div key={i} className="text-center">
+                <div className="text-4xl font-display font-bold text-gradient">
                   {stat.value}
                 </div>
                 <div className="text-sm text-muted-foreground uppercase tracking-wider">
                   {stat.label}
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="text-muted-foreground text-lg leading-relaxed"
-          >
-            An immersive experiential activation that transformed the event space into a 
-            multisensory journey. Combining cutting-edge technology with artistic vision to 
-            create unforgettable moments for every attendee.
-          </motion.p>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            An immersive experiential activation that transformed the event space
+            into a multisensory journey.
+          </p>
         </div>
       </motion.div>
     </motion.div>
@@ -374,7 +321,6 @@ const PortfolioGrid = () => {
         </p>
       </motion.div>
 
-      {/* Masonry Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min">
         {projects.map((project, index) => (
           <ProjectCard
@@ -386,7 +332,6 @@ const PortfolioGrid = () => {
         ))}
       </div>
 
-      {/* Fullscreen Modal */}
       <AnimatePresence>
         {selectedProject && (
           <ProjectModal

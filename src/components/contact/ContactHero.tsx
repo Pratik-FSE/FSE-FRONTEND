@@ -9,13 +9,14 @@ const FloatingShape = () => {
       <Icosahedron args={[2, 1]}>
         <MeshDistortMaterial
           color="#8b5cf6"
-          attach="material"
+          emissive="#8b5cf6"
+          emissiveIntensity={0.35}
           distort={0.3}
           speed={2}
-          roughness={0.2}
-          metalness={0.8}
+          roughness={0.25}
+          metalness={0.6}
           transparent
-          opacity={0.6}
+          opacity={0.7}
         />
       </Icosahedron>
     </Float>
@@ -24,7 +25,7 @@ const FloatingShape = () => {
 
 const ContactHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
@@ -39,62 +40,65 @@ const ContactHero = () => {
       className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
     >
       {/* 3D Background */}
-      <div className="absolute right-0 top-0 w-1/2 h-full z-0 hidden lg:block">
+      <div className="absolute right-0 top-0 w-1/2 h-full hidden lg:block z-canvas">
         <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={1} color="#8b5cf6" />
-          <pointLight position={[-10, -10, 5]} intensity={0.5} color="#06b6d4" />
+          <ambientLight intensity={0.8} />
+          <pointLight position={[10, 10, 10]} intensity={1.2} />
+          <pointLight position={[-10, -10, 5]} intensity={0.8} />
           <FloatingShape />
         </Canvas>
       </div>
 
-      {/* Gradient overlays */}
+      {/* Overlay */}
       <motion.div
         style={{ opacity }}
-        className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10"
+        className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-transparent z-overlay"
       />
 
       {/* Content */}
       <motion.div
         style={{ y }}
-        className="relative z-20 w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-16"
+        className="relative z-content w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-16"
       >
         <div className="max-w-2xl">
+          {/* Status pill */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="mb-6"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-hero">
               <motion.span
                 animate={{ scale: [1, 1.3, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="w-2 h-2 rounded-full bg-green-500"
+                className="w-2 h-2 rounded-full bg-primary"
               />
               Available for New Projects
             </span>
           </motion.div>
 
+          {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] mb-8"
+            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] mb-8 text-hero"
           >
-            Let's Create
+            Let&apos;s Create
             <br />
             <span className="text-gradient">Magic</span>
           </motion.h1>
 
+          {/* Subtext */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-xl text-muted-foreground"
+            className="text-xl text-hero-muted"
           >
-            Ready to transform your next event into an unforgettable experience? 
-            We'd love to hear about your vision.
+            Ready to transform your next event into an unforgettable experience?
+            We&apos;d love to hear about your vision.
           </motion.p>
         </div>
       </motion.div>
