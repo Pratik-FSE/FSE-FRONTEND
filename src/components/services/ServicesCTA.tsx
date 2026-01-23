@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 
 const ServicesCTA = () => {
   return (
-    <section className="relative py-32 md:py-48 overflow-hidden">
+    <section className="relative py-32 md:py-48 overflow-hidden bg-white dark:bg-background">
       {/* Animated background */}
       <div className="absolute inset-0">
+        {/* Center glow */}
         <motion.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
           style={{
-            background: 'radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, transparent 60%)',
+            background:
+              'radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, transparent 60%)',
           }}
           animate={{
             scale: [1, 1.2, 1],
@@ -18,26 +20,25 @@ const ServicesCTA = () => {
           }}
           transition={{ duration: 8, repeat: Infinity }}
         />
+
+        {/* Secondary glows (dark-only intensity) */}
         <motion.div
-          className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full"
+          className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full opacity-40 dark:opacity-100"
           style={{
-            background: 'radial-gradient(circle, hsl(var(--secondary) / 0.1) 0%, transparent 70%)',
+            background:
+              'radial-gradient(circle, hsl(var(--secondary) / 0.1) 0%, transparent 70%)',
           }}
-          animate={{
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-          }}
+          animate={{ x: [0, 50, 0], y: [0, -30, 0] }}
           transition={{ duration: 10, repeat: Infinity }}
         />
+
         <motion.div
-          className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full"
+          className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full opacity-40 dark:opacity-100"
           style={{
-            background: 'radial-gradient(circle, hsl(var(--accent) / 0.1) 0%, transparent 70%)',
+            background:
+              'radial-gradient(circle, hsl(var(--accent) / 0.1) 0%, transparent 70%)',
           }}
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 50, 0],
-          }}
+          animate={{ x: [0, -30, 0], y: [0, 50, 0] }}
           transition={{ duration: 12, repeat: Infinity }}
         />
       </div>
@@ -52,8 +53,14 @@ const ServicesCTA = () => {
             transition={{ type: 'spring', damping: 15 }}
             className="inline-flex mb-8"
           >
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-accent p-5 animate-pulse-glow">
-              <Sparkles className="w-full h-full text-foreground" />
+            <div
+              className="
+                w-20 h-20 rounded-2xl p-5
+                bg-blue-600 dark:bg-gradient-to-br dark:from-primary dark:to-accent
+                text-white
+              "
+            >
+              <Sparkles className="w-full h-full" />
             </div>
           </motion.div>
 
@@ -65,8 +72,13 @@ const ServicesCTA = () => {
             transition={{ delay: 0.2 }}
             className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
           >
-            Ready to Create <br />
-            <span className="text-gradient">Something Extraordinary?</span>
+            <span className="text-black dark:text-foreground">
+              Ready to Create
+            </span>
+            <br />
+            <span className="text-blue-600 dark:text-gradient">
+              Something Extraordinary?
+            </span>
           </motion.h2>
 
           {/* Subtext */}
@@ -75,9 +87,12 @@ const ServicesCTA = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="text-xl text-muted-foreground font-body mb-12 max-w-2xl mx-auto"
+            className="
+              text-xl font-body mb-12 max-w-2xl mx-auto
+              text-gray-600 dark:text-muted-foreground
+            "
           >
-            Let's discuss how we can transform your next event into an 
+            Let's discuss how we can transform your next event into an
             unforgettable experience. Our team is ready to bring your vision to life.
           </motion.p>
 
@@ -89,12 +104,18 @@ const ServicesCTA = () => {
             transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
+            {/* Primary CTA */}
             <Link to="/contact">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-full bg-gradient-to-r from-primary to-accent text-foreground font-display font-bold text-lg flex items-center justify-center gap-3 shadow-lg group"
-                style={{ boxShadow: '0 10px 40px hsl(var(--primary) / 0.3)' }}
+                className="
+                  px-8 py-4 rounded-full font-display font-bold text-lg
+                  flex items-center justify-center gap-3
+                  bg-blue-600 text-white
+                  hover:bg-orange-500
+                  transition-colors shadow-lg
+                "
                 data-cursor-hover
               >
                 Book a Consultation
@@ -106,11 +127,20 @@ const ServicesCTA = () => {
                 </motion.div>
               </motion.button>
             </Link>
+
+            {/* Secondary CTA */}
             <Link to="/#projects">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-full border border-primary/50 text-foreground font-display font-bold text-lg hover:bg-primary/10 transition-colors"
+                className="
+                  px-8 py-4 rounded-full font-display font-bold text-lg
+                  border border-blue-600 text-blue-600
+                  hover:border-orange-500 hover:text-orange-500
+                  dark:border-primary/50 dark:text-foreground
+                  dark:hover:bg-primary/10
+                  transition-colors
+                "
                 data-cursor-hover
               >
                 View Our Work
