@@ -4,46 +4,46 @@ import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "Fullscreen Experiences transformed our fashion week after-party into an unforgettable digital wonderland. The AI photo booth was the star of the night!",
-    author: "Sarah Mitchell",
+    quote: "The anamorphic display at Fashion Week created a viral moment. Every influencer wanted to capture it for their feed.",
+    author: "",
     role: "Event Director",
-    company: "Vogue Events",
+    company: "Cigma Events",
     rating: 5,
   },
   {
-    quote: "Their gaming zone setup for our product launch exceeded all expectations. Professional, innovative, and absolutely stunning.",
-    author: "Marcus Chen",
+    quote: "Their immersive technology transformed our corporate event into something truly memorable. The production quality was exceptional.",
+    author: "",
     role: "Brand Manager",
-    company: "Nike Future Lab",
+    company: "Microsoft",
     rating: 5,
   },
   {
-    quote: "The interactive LED wall they created became the most photographed installation at our festival. Incredible engagement!",
-    author: "Emma Rodriguez",
+    quote: "The interactive experience generated massive engagement and social media reach. Results exceeded all expectations.",
+    author: "",
     role: "Creative Lead",
-    company: "Spotify Events",
+    company: "PepsiCo",
     rating: 5,
   },
   {
-    quote: "Working with Fullscreen Experiences felt like having a creative partner who truly understands luxury brand experiences.",
-    author: "James Wilson",
+    quote: "Working with this team felt like having true creative partners who understand our brand vision and deliver excellence.",
+    author: "",
     role: "Marketing Director",
-    company: "Louis Vuitton",
+    company: "Google",
     rating: 5,
   },
   {
-    quote: "The AR experience they built for our store opening generated more social media buzz than any campaign we've ever done.",
-    author: "Isabelle Fontaine",
+    quote: "The experiential tech solutions they designed became the highlight of our launch event. Tremendous impact and engagement.",
+    author: "",
     role: "Brand Experience Manager",
-    company: "Chanel",
+    company: "Pentagon Events",
     rating: 5,
   },
 ];
 
 const brands = [
-  "CHANEL", "GUCCI", "PRADA", "LOUIS VUITTON", 
-  "NIKE", "ADIDAS", "SPOTIFY", "META",
-  "VERSACE", "DIOR", "BALENCIAGA", "FENDI"
+  "Government of Telangana", "Microsoft", "Google", "TATA", 
+  "Schneider", "P&G", "PepsiCo", "Pidilite",
+  "TotalEnergies", "Yes Bank", "ICICI Lombard", "Kotak Bank"
 ];
 
 const Testimonials = () => {
@@ -240,19 +240,23 @@ const Testimonials = () => {
                   {/* Author */}
                   <div className="flex items-center gap-4">
                     {/* Avatar */}
-                    <motion.div 
-                      className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center"
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      <span className="font-display font-bold text-xl text-foreground">
-                        {testimonials[currentIndex].author.charAt(0)}
-                      </span>
-                    </motion.div>
+                    {testimonials[currentIndex].author && (
+                      <motion.div 
+                        className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center"
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <span className="font-display font-bold text-xl text-foreground">
+                          {testimonials[currentIndex].author.charAt(0)}
+                        </span>
+                      </motion.div>
+                    )}
                     
                     <div>
-                      <div className="font-display font-semibold text-foreground text-lg">
-                        {testimonials[currentIndex].author}
-                      </div>
+                      {testimonials[currentIndex].author && (
+                        <div className="font-display font-semibold text-foreground text-lg">
+                          {testimonials[currentIndex].author}
+                        </div>
+                      )}
                       <div className="text-sm text-muted-foreground">
                         {testimonials[currentIndex].role}, {testimonials[currentIndex].company}
                       </div>

@@ -5,34 +5,34 @@ import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 1,
-    quote: "Fullscreen Experiences transformed our product launch into an unforgettable spectacle. The holographic display was unlike anything our audience had ever seen.",
-    author: "Sarah Chen",
-    role: "Marketing Director",
-    company: "Nike Asia",
+    quote: "The anamorphic display at Fashion Week created a viral moment. Every influencer wanted to capture it for their feed.",
+    author: "",
+    role: "Creative Director",
+    company: "Cigma Events",
     gradient: 'from-primary to-accent',
   },
   {
     id: 2,
-    quote: "The AI photo booth generated over 50,000 shares in just one weekend. The engagement metrics were through the roof.",
-    author: "Raj Patel",
-    role: "Event Lead",
-    company: "Sunburn Festival",
+    quote: "Their immersive experience transformed our corporate event into an unforgettable spectacle. The production quality was exceptional.",
+    author: "",
+    role: "Project Lead",
+    company: "Microsoft",
     gradient: 'from-secondary to-primary',
   },
   {
     id: 3,
-    quote: "Their gaming zone setup was flawless. Professional esports-grade equipment with an aesthetic that matched our brand perfectly.",
-    author: "Mica Torres",
-    role: "Brand Manager",
-    company: "Red Bull India",
+    quote: "The integrated tech solutions generated massive engagement. Our audience response exceeded all expectations.",
+    author: "",
+    role: "Event Manager",
+    company: "Pentagon Events",
     gradient: 'from-accent to-secondary',
   },
   {
     id: 4,
-    quote: "The anamorphic display at Fashion Week created a viral moment. Every influencer wanted to capture it for their feed.",
-    author: "Priya Sharma",
-    role: "Creative Head",
-    company: "Lakme Fashion Week",
+    quote: "Exceptional execution with attention to every detail. Delivered results that amplified our brand presence significantly.",
+    author: "",
+    role: "Brand Marketing",
+    company: "PepsiCo",
     gradient: 'from-neon-cyan to-primary',
   },
 ];
@@ -139,9 +139,11 @@ const TestimonialSlider = () => {
                 >
                   <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${testimonials[currentIndex].gradient}`} />
                   <div>
-                    <div className="font-display font-semibold">
-                      {testimonials[currentIndex].author}
-                    </div>
+                    {testimonials[currentIndex].author && (
+                      <div className="font-display font-semibold">
+                        {testimonials[currentIndex].author}
+                      </div>
+                    )}
                     <div className="text-sm text-muted-foreground">
                       {testimonials[currentIndex].role}, {testimonials[currentIndex].company}
                     </div>

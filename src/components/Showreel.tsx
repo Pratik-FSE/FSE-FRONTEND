@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { Play, Volume2, Pause } from 'lucide-react';
 
-const brands = ['CHANEL', 'GUCCI', 'DIOR', 'PRADA', 'VERSACE', 'NIKE'];
+const brands = ['Microsoft', 'Google', 'TATA', 'Schneider', 'P&G', 'PepsiCo'];
 
 const Showreel = () => {
   const sectionRef = useRef<HTMLElement>(null);

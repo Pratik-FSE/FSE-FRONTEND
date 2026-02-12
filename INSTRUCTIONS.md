@@ -354,8 +354,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'hello@fullscreenexperiences.com', // ← Edit
-    href: 'mailto:hello@fullscreenexperiences.com'
+    value: 'pratikbindworks@gmail.com', // ← Edit
+    href: 'mailto:pratikbindworks@gmail.com'
   },
   {
     icon: Phone,

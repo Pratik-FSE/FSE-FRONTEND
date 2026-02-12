@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 
 const brands = [
-  'Nike', 'Apple', 'Microsoft', 'Google', 'Meta', 'Netflix', 'Spotify', 'Amazon',
-  'Tesla', 'Samsung', 'Sony', 'Adobe', 'Uber', 'Airbnb', 'Twitter', 'LinkedIn',
+  'Microsoft', 'Google', 'TATA', 'Schneider', 'P&G', 'PepsiCo', 'Pidilite', 'TotalEnergies',
+  'Yes Bank', 'ICICI Lombard', 'Kotak Bank', 'Zurich Kotak', 'Glenmark', 'Pfizer', 'Marico', 'Abbott',
 ];
 
 const LogoMarquee = () => {

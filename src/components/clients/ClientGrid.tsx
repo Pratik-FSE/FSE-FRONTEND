@@ -2,18 +2,18 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 
 const clients = [
-  { name: 'Nike', industry: 'Fashion', events: 12, gradient: 'from-primary to-accent' },
-  { name: 'Apple', industry: 'Technology', events: 8, gradient: 'from-secondary to-primary' },
-  { name: 'Lakme', industry: 'Beauty', events: 24, gradient: 'from-accent to-secondary' },
-  { name: 'Red Bull', industry: 'Lifestyle', events: 18, gradient: 'from-neon-cyan to-secondary' },
-  { name: 'Microsoft', industry: 'Technology', events: 15, gradient: 'from-primary to-neon-pink' },
-  { name: 'Sony', industry: 'Entertainment', events: 10, gradient: 'from-accent to-primary' },
-  { name: 'Adidas', industry: 'Fashion', events: 14, gradient: 'from-secondary to-accent' },
-  { name: 'Netflix', industry: 'Entertainment', events: 6, gradient: 'from-neon-pink to-primary' },
-  { name: 'Spotify', industry: 'Music', events: 9, gradient: 'from-secondary to-neon-cyan' },
-  { name: 'Google', industry: 'Technology', events: 11, gradient: 'from-primary to-secondary' },
-  { name: 'Meta', industry: 'Technology', events: 7, gradient: 'from-accent to-neon-cyan' },
-  { name: 'Amazon', industry: 'E-Commerce', events: 13, gradient: 'from-neon-pink to-accent' },
+  { name: 'Gemini Hydraulics', industry: 'Manufacturing', events: 12, gradient: 'from-primary to-accent' },
+  { name: 'Chopra Audio Visuals', industry: 'Media', events: 8, gradient: 'from-secondary to-primary' },
+  { name: 'Cigma Events', industry: 'Events', events: 24, gradient: 'from-accent to-secondary' },
+  { name: 'BOI', industry: 'Banking', events: 18, gradient: 'from-neon-cyan to-secondary' },
+  { name: 'Shobiz', industry: 'Entertainment', events: 15, gradient: 'from-primary to-neon-pink' },
+  { name: 'TechXP', industry: 'Technology', events: 10, gradient: 'from-accent to-primary' },
+  { name: 'Sound.com', industry: 'Audio', events: 14, gradient: 'from-secondary to-accent' },
+  { name: 'Streamvent', industry: 'Events', events: 6, gradient: 'from-neon-pink to-primary' },
+  { name: 'Tagglabs', industry: 'Technology', events: 9, gradient: 'from-secondary to-neon-cyan' },
+  { name: 'Event Elephants', industry: 'Events', events: 11, gradient: 'from-primary to-secondary' },
+  { name: 'Pentagon Events', industry: 'Events', events: 7, gradient: 'from-accent to-neon-cyan' },
+  { name: 'Tribes Communications', industry: 'Marketing', events: 13, gradient: 'from-neon-pink to-accent' },
 ];
 
 const ClientCard = ({ client, index }: { client: typeof clients[0]; index: number }) => {

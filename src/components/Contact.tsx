@@ -133,9 +133,9 @@ const Contact = () => {
             {/* Contact details with hover animations */}
             <div className="space-y-4">
               {[
-                { icon: Mail, label: 'Email', value: 'hello@fullscreenexperiences.com', href: 'mailto:hello@fullscreenexperiences.com', color: 'primary' },
-                { icon: Phone, label: 'Phone', value: '+1 (415) 555-1234', href: 'tel:+14155551234', color: 'secondary' },
-                { icon: MapPin, label: 'Location', value: 'San Francisco, CA', href: null, color: 'accent' },
+                { icon: Mail, label: 'Email', value: 'pratikbindworks@gmail.com', href: 'mailto:pratikbindworks@gmail.com', color: 'primary' },
+                { icon: Phone, label: 'Phone', value: '+91 91670 94424', href: 'tel:+919167094424', color: 'secondary' },
+                { icon: MapPin, label: 'Location', value: 'Bangalore, India', href: null, color: 'accent' },
               ].map((contact, index) => (
                 <motion.a
                   key={contact.label}
@@ -257,7 +257,7 @@ const Contact = () => {
                     onBlur={() => setFocusedField(null)}
                     required
                     className={inputClasses}
-                    placeholder="john@company.com"
+                    placeholder="pratikbindworks@gmail.com"
                   />
                 </motion.div>
 
@@ -278,7 +278,7 @@ const Contact = () => {
                     onFocus={() => setFocusedField('phone')}
                     onBlur={() => setFocusedField(null)}
                     className={inputClasses}
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 91670 94424"
                   />
                 </motion.div>
 

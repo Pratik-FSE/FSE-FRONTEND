@@ -205,9 +205,9 @@ const ContactForm = () => {
             </div>
 
             {[
-              { icon: Mail, label: 'Email', value: 'hello@fullscreenexperiences.com' },
-              { icon: Phone, label: 'Phone', value: '+91 98765 43210' },
-              { icon: MapPin, label: 'Location', value: 'Mumbai, India' },
+              { icon: Mail, label: 'Email', value: 'pratikbindworks@gmail.com' },
+              { icon: Phone, label: 'Phone', value: '+91 91670 94424' },
+              { icon: MapPin, label: 'Location', value: 'Bangalore, India' },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-6">
                 <item.icon className="w-6 h-6 text-primary" />
