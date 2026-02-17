@@ -1,81 +1,94 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import {
-  Camera,
-  Gamepad2,
+  Play,
   Sparkles,
-  MonitorPlay,
-  Users,
   Zap,
   ArrowRight,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 
 interface Experience {
+  id: string;
   icon: React.ReactNode;
   title: string;
   description: string;
   color: string;
   gradient: string;
+  videoSrc: string;
 }
 
 const experiences: Experience[] = [
   {
-    icon: <Camera className="w-8 h-8" />,
-    title: 'AR Photo Booth',
+    id: 'quiz-game',
+    icon: <Play className="w-8 h-8" />,
+    title: 'Quiz Game AV LinkedIn',
     description:
-      'Immersive augmented reality experiences with instant sharing, custom filters, and branded overlays.',
+      'Interactive quiz game experience powered by audio-visual technology for maximum engagement.',
     color: 'primary',
     gradient: 'from-primary to-accent',
+    videoSrc: '/4.mp4',
   },
   {
+    id: 'fruit-cutter',
     icon: <Sparkles className="w-8 h-8" />,
-    title: 'AI Snap Art Booth',
+    title: 'Fruit Cutter Game AV LinkedIn',
     description:
-      'AI-powered photo transformation that turns guests into art pieces in real-time.',
+      'Fast-paced fruit cutter game with immersive audio-visual feedback for dynamic events.',
     color: 'secondary',
     gradient: 'from-secondary to-primary',
+    videoSrc: '/1.mp4',
   },
   {
-    icon: <Gamepad2 className="w-8 h-8" />,
-    title: 'Gaming & Esports Zone',
+    id: 'kinect-game',
+    icon: <Play className="w-8 h-8" />,
+    title: 'Kinect Game AV LinkedIn',
     description:
-      'Premium PlayStation, Xbox setups, racing simulators, and competitive gaming stations.',
+      'Body-tracking motion game experience using Kinect technology for interactive engagement.',
     color: 'accent',
     gradient: 'from-accent to-secondary',
+    videoSrc: '/2.mp4',
   },
   {
-    icon: <MonitorPlay className="w-8 h-8" />,
-    title: 'Motion & Gesture Games',
+    id: 'pepsi-ar',
+    icon: <Zap className="w-8 h-8" />,
+    title: 'Pepsi AR Booth Video',
     description:
-      'Interactive body-tracking games and experiences that engage crowds of all ages.',
+      'Branded augmented reality booth experience creating viral-worthy moments.',
     color: 'primary',
     gradient: 'from-primary to-secondary',
+    videoSrc: '/6.mp4',
   },
   {
-    icon: <Users className="w-8 h-8" />,
-    title: 'Live Social Wall',
+    id: 'ar-photo-booth',
+    icon: <Sparkles className="w-8 h-8" />,
+    title: 'AR Photo Booth Reel',
     description:
-      'Real-time social media aggregation displayed on stunning LED installations.',
+      'Cutting-edge AR photo booth creating instant shareable content with custom filters.',
     color: 'secondary',
     gradient: 'from-secondary to-accent',
+    videoSrc: '/3.mp4',
   },
   {
+    id: 'ai-video-booth',
     icon: <Zap className="w-8 h-8" />,
-    title: 'Interactive LED Wall',
+    title: 'AI Video Booth Video',
     description:
-      'Touch-responsive LED displays for immersive brand activations and visual experiences.',
+      'AI-powered video booth transforming guests into artistic creations in real-time.',
     color: 'accent',
     gradient: 'from-accent to-primary',
+    videoSrc: '/5.mp4',
   },
 ];
 
 interface TiltCardProps {
   experience: Experience;
   index: number;
+  onSelectVideo: (video: string, title: string) => void;
 }
 
-const TiltCard = ({ experience, index }: TiltCardProps) => {
+const TiltCard = ({ experience, index, onSelectVideo }: TiltCardProps) => {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -105,6 +118,10 @@ const TiltCard = ({ experience, index }: TiltCardProps) => {
     setRotateY(((x - centerX) / centerX) * 15);
   };
 
+  const handleClick = () => {
+    onSelectVideo(experience.videoSrc, experience.title);
+  };
+
   return (
     <motion.div
       ref={cardRef}
@@ -119,7 +136,8 @@ const TiltCard = ({ experience, index }: TiltCardProps) => {
         setRotateY(0);
         setIsHovered(false);
       }}
-      className="tilt-card group h-full"
+      onClick={handleClick}
+      className="tilt-card group h-full cursor-pointer"
       data-cursor-hover
     >
       <motion.div
@@ -197,7 +215,7 @@ const TiltCard = ({ experience, index }: TiltCardProps) => {
               ${accentText}
             `}
           >
-            Learn more <ArrowRight className="w-4 h-4" />
+            Play Video <ArrowRight className="w-4 h-4" />
           </div>
         </div>
       </motion.div>
@@ -207,8 +225,11 @@ const TiltCard = ({ experience, index }: TiltCardProps) => {
 
 const Experiences = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
   const navigate = useNavigate();
+  const [selectedVideo, setSelectedVideo] = useState<string>(experiences[0].videoSrc);
+  const [selectedTitle, setSelectedTitle] = useState<string>(experiences[0].title);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -216,6 +237,12 @@ const Experiences = () => {
   });
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  const handleSelectVideo = (videoSrc: string, title: string) => {
+    console.log('Video selected:', videoSrc);
+    setSelectedVideo(videoSrc);
+    setSelectedTitle(title);
+  };
 
   return (
     <section ref={sectionRef} className="relative py-32 overflow-hidden">
@@ -245,11 +272,38 @@ const Experiences = () => {
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {experiences.map((exp, i) => (
-            <TiltCard key={exp.title} experience={exp} index={i} />
-          ))}
+        {/* Video Player and Cards Section */}
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          {/* Video Player */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="lg:col-span-1 h-[400px] rounded-2xl glass border border-border/50 overflow-hidden bg-black flex items-center justify-center"
+          >
+            {selectedVideo && (
+              <video
+                ref={videoRef}
+                key={selectedVideo}
+                src={selectedVideo}
+                controls
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+                className="w-full h-full object-contain"
+                onLoadedData={() => videoRef.current?.play()}
+                onError={(e) => console.error('Video error:', selectedVideo, e)}
+              />
+            )}
+          </motion.div>
+
+          {/* Cards Grid */}
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {experiences.map((exp, i) => (
+              <TiltCard key={exp.id} experience={exp} index={i} onSelectVideo={handleSelectVideo} />
+            ))}
+          </div>
         </div>
 
         {/* CTA */}

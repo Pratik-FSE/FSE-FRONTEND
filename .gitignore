@@ -7,18 +7,63 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build outputs
 dist
 dist-ssr
-*.local
+.vite
+build
 
-# Editor directories and files
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.local
+*.swp
+*.swo
+*~
+
+# Media files (videos, large assets)
+public/*.mp4
+public/*.webm
+public/*.mov
+public/*.avi
+public/*.mkv
+public/**/*.mp4
+public/**/*.webm
+public/**/*.mov
+public/**/*.avi
+public/**/*.mkv
+
+# OS files
+.DS_Store
+Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
+.vscode/settings.json
+
+# Editor files
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.sublime-workspace
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Package manager locks (optional - uncomment if not needed)
+# bun.lockb
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml

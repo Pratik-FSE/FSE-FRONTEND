@@ -1,67 +1,25 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import CustomCursor from '@/components/CustomCursor';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ExperiencesHero from '@/components/experiences/ExperiencesHero';
 import ExperienceCategory from '@/components/experiences/ExperienceCategory';
 import HorizontalScroller from '@/components/experiences/HorizontalScroller';
+import { experienceCategories, experienceVideoMap } from '@/data/experienceCategories';
 import { motion } from 'framer-motion';
 
-const categories = [
-  {
-    title: 'Gaming & Esports',
-    description:
-      'Premium gaming experiences featuring the latest consoles, racing simulators, and competitive esports setups for events of any scale.',
-    items: [
-      'PlayStation Lounge',
-      'Xbox Gaming Zone',
-      'Racing Simulators',
-      'VR Gaming Arena',
-      'Esports Tournament Setup',
-    ],
-    gradient: 'dark:from-primary dark:to-secondary',
-  },
-  {
-    title: 'Photo & Video Booths',
-    description:
-      'Cutting-edge photo experiences powered by AI and AR technology, creating shareable moments that amplify brand reach.',
-    items: [
-      'AI Photo Booth',
-      'AR Photo Experience',
-      'Green Screen Studio',
-      '360° Video Booth',
-      'Slow Motion Booth',
-    ],
-    gradient: 'dark:from-accent dark:to-primary',
-  },
-  {
-    title: 'Visual Displays',
-    description:
-      'Jaw-dropping visual installations from LED walls to anamorphic displays that captivate and mesmerize audiences.',
-    items: [
-      'Anamorphic Displays',
-      'LED Wall Installations',
-      'Holographic Displays',
-      'Projection Mapping',
-      'Interactive Screens',
-    ],
-    gradient: 'dark:from-secondary dark:to-accent',
-  },
-  {
-    title: 'Brand Activations',
-    description:
-      'Custom experiential activations designed to create unforgettable brand moments and drive engagement.',
-    items: [
-      'Brand Reveal Videos',
-      'Logo Animations',
-      'Trophy Animations',
-      'Destination Reveals',
-      'Speaker Intros',
-    ],
-    gradient: 'dark:from-neon-cyan dark:to-primary',
-  },
-];
-
 const Experiences = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '');
+      const el = document.getElementById(id);
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [hash]);
+
   return (
     <div className="relative min-h-screen bg-background overflow-x-hidden">
       <CustomCursor />
@@ -70,15 +28,17 @@ const Experiences = () => {
       <main>
         <ExperiencesHero />
 
-        {/* Category Sections */}
-        {categories.map((category, index) => (
+        {/* Category Sections - each has list + video container beside it */}
+        {experienceCategories.map((category, index) => (
           <ExperienceCategory
             key={category.title}
+            sectionId={category.sectionId}
             title={category.title}
             description={category.description}
             items={category.items}
             gradient={category.gradient}
             index={index}
+            videoMap={experienceVideoMap}
           />
         ))}
 

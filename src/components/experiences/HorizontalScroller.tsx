@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
+import { experienceCategories } from '@/data/experienceCategories';
 
 interface ScrollItem {
   id: number;
@@ -9,18 +10,29 @@ interface ScrollItem {
 }
 
 const scrollItems: ScrollItem[] = [
-  { id: 1, title: 'Anamorphic Displays', category: 'Visual Tech', gradient: 'from-primary to-accent' },
-  { id: 2, title: 'Artist Intros', category: 'Event Production', gradient: 'from-secondary to-primary' },
-  { id: 3, title: 'Brand Videos', category: 'Content Creation', gradient: 'from-accent to-secondary' },
-  { id: 4, title: 'Chroma Studios', category: 'Production', gradient: 'from-neon-cyan to-secondary' },
-  { id: 5, title: 'Destination Reveals', category: 'Brand Activation', gradient: 'from-primary to-neon-pink' },
-  { id: 6, title: 'Logo Animations', category: 'Motion Design', gradient: 'from-accent to-primary' },
-  { id: 7, title: 'Physical Setups', category: 'Installation', gradient: 'from-secondary to-accent' },
-  { id: 8, title: 'Trophy Animations', category: 'Award Shows', gradient: 'from-neon-pink to-primary' },
+  { id: 1, title: 'Quiz Game AV LinkedIn', category: 'Gaming & Interactive', gradient: 'from-primary to-accent' },
+  { id: 2, title: 'LED Wall Installation Reel', category: 'Visual Displays', gradient: 'from-primary to-accent' },
+  { id: 3, title: 'Brand Reveal — Pepsi', category: 'Brand Activations', gradient: 'from-secondary to-primary' },
+  { id: 4, title: 'AR Photo Booth Reel', category: 'AR & Visual Experiences', gradient: 'from-primary to-neon-pink' },
+  { id: 5, title: 'Projection Mapping Event', category: 'Visual Displays', gradient: 'from-primary to-accent' },
+  { id: 6, title: 'AI Video Booth Video', category: 'AR & Visual Experiences', gradient: 'from-accent to-primary' },
 ];
 
 const HorizontalScroller = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  function handleCardClick(categoryTitle: string) {
+    const cat = experienceCategories.find((c) => c.title === categoryTitle);
+    if (!cat) return;
+    const el = document.getElementById(cat.sectionId);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Ask the target section to play a random video for this section
+    try {
+      window.dispatchEvent(new CustomEvent(`playRandomVideo:${cat.sectionId}`));
+    } catch {
+      // ignore
+    }
+  }
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -73,6 +85,10 @@ const HorizontalScroller = () => {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -10 }}
                 className="flex-shrink-0 w-[350px] h-[450px] relative group cursor-pointer"
+                role="button"
+                tabIndex={0}
+                onClick={() => handleCardClick(item.category)}
+                onKeyDown={(e) => { if (e.key === 'Enter') handleCardClick(item.category); }}
               >
                 {/* Background */}
                 <div
