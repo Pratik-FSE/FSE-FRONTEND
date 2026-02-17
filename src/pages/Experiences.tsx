@@ -7,6 +7,7 @@ import ExperiencesHero from '@/components/experiences/ExperiencesHero';
 import ExperienceCategory from '@/components/experiences/ExperienceCategory';
 import HorizontalScroller from '@/components/experiences/HorizontalScroller';
 import { experienceCategories, experienceVideoMap } from '@/data/experienceCategories';
+import { VideoPlaybackProvider } from '@/contexts/VideoPlaybackContext';
 import { motion } from 'framer-motion';
 
 const Experiences = () => {
@@ -25,25 +26,26 @@ const Experiences = () => {
       <CustomCursor />
       <Navigation />
 
-      <main>
-        <ExperiencesHero />
+      <VideoPlaybackProvider>
+        <main>
+          <ExperiencesHero />
 
-        {/* Category Sections - each has list + video container beside it */}
-        {experienceCategories.map((category, index) => (
-          <ExperienceCategory
-            key={category.title}
-            sectionId={category.sectionId}
-            title={category.title}
-            description={category.description}
-            items={category.items}
-            gradient={category.gradient}
-            index={index}
-            videoMap={experienceVideoMap}
-          />
-        ))}
+          {/* Category Sections - each has list + video container beside it */}
+          {experienceCategories.map((category, index) => (
+            <ExperienceCategory
+              key={category.title}
+              sectionId={category.sectionId}
+              title={category.title}
+              description={category.description}
+              items={category.items}
+              gradient={category.gradient}
+              index={index}
+              videoMap={experienceVideoMap}
+            />
+          ))}
 
-        {/* Horizontal Scroll Section */}
-        <HorizontalScroller />
+          {/* Horizontal Scroll Section */}
+          <HorizontalScroller />
 
         {/* CTA Section */}
         <motion.section
@@ -116,7 +118,8 @@ const Experiences = () => {
             </motion.a>
           </div>
         </motion.section>
-      </main>
+        </main>
+      </VideoPlaybackProvider>
 
       <Footer />
     </div>

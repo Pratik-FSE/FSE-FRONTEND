@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import HeroScene from './HeroScene';
 import { ArrowDown } from 'lucide-react';
 
 const words = ['Events', 'Brands', 'Experiences', 'Fashion'];
@@ -82,11 +81,6 @@ const Hero = () => {
         animate={{ scale: [1, 1.3, 1], rotate: [0, -60, 0] }}
         transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
       />
-
-      {/* 3D Scene */}
-      <div className="absolute inset-0 z-0 opacity-20">
-        <HeroScene />
-      </div>
 
       {/* Content */}
       <motion.div

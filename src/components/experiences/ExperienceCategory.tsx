@@ -1,6 +1,7 @@
   import { motion, useInView, useScroll, useTransform } from 'framer-motion';
   import { useRef, useState, useEffect } from 'react';
   import { Play, ArrowRight, ChevronRight } from 'lucide-react';
+  import { useVideoPlayback } from '@/contexts/VideoPlaybackContext';
 
   interface ExperienceCategoryProps {
     sectionId?: string;
@@ -28,6 +29,9 @@
     const [selectedVideoUrl, setSelectedVideoUrl] = useState<string | null>(null);
     const [selectedPlaylist, setSelectedPlaylist] = useState<string[]>([]);
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
+    const [isCurrentlyVisible, setIsCurrentlyVisible] = useState(false);
+    const { pauseAllVideos } = useVideoPlayback();
+    const observerRef = useRef<IntersectionObserver | null>(null);
 
     function pickRandomIndex(list: string[]) {
       return Math.floor(Math.random() * list.length);
@@ -68,6 +72,54 @@
       }
     }, [selectedVideoUrl]);
 
+    // Intersection Observer for auto-play on scroll visibility
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsCurrentlyVisible(true);
+            // Auto-play first item when category becomes visible (works on scroll up/down)
+            if (items.length > 0 && !selectedVideoUrl) {
+              const firstItemValue = videoMap[items[0]];
+              if (firstItemValue) {
+                selectVideo(firstItemValue);
+              }
+            }
+          } else {
+            setIsCurrentlyVisible(false);
+            // Pause video when category scrolls out of view
+            if (videoRef.current) {
+              videoRef.current.pause();
+            }
+          }
+        },
+        { threshold: 0.25, rootMargin: '50px' }
+      );
+
+      observerRef.current = observer;
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+
+      return () => {
+        if (observerRef.current && ref.current) {
+          observerRef.current.unobserve(ref.current);
+        }
+      };
+    }, [items, videoMap]);
+
+    // Pause all other videos when this category is visible and has a video
+    useEffect(() => {
+      if (isCurrentlyVisible && selectedVideoUrl) {
+        // Pause all videos except this one
+        pauseAllVideos(sectionId);
+        // Resume playing this video
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {});
+        }
+      }
+    }, [isCurrentlyVisible, selectedVideoUrl, sectionId, pauseAllVideos]);
+
     const { scrollYProgress } = useScroll({
       target: ref,
       offset: ['start end', 'end start'],
@@ -89,6 +141,7 @@
       <motion.section
         id={sectionId}
         ref={ref}
+        data-section-id={sectionId}
         style={{ opacity }}
         className="py-24 md:py-32 relative overflow-hidden scroll-mt-24"
       >

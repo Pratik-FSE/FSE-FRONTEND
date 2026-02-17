@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import ServiceScene from '../3d/ServiceScene';
 
 const ServicesHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -9,7 +8,6 @@ const ServicesHero = () => {
     offset: ['start start', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
@@ -17,10 +15,6 @@ const ServicesHero = () => {
       ref={containerRef}
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* 3D Background */}
-      <motion.div className="absolute inset-0 z-canvas" style={{ y }}>
-        <ServiceScene />
-      </motion.div>
 
       {/* Overlays */}
       <div className="absolute inset-0 z-overlay bg-gradient-to-b from-background/90 via-background/70 to-background" />

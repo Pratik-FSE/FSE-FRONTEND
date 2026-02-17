@@ -36,7 +36,10 @@ const ExperiencesHero = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center overflow-hidden">
+    <section
+      ref={containerRef}
+      className="relative min-h-screen flex items-center overflow-x-visible overflow-y-hidden"
+    >
       {/* 3D */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
@@ -64,7 +67,7 @@ const ExperiencesHero = () => {
               Experience Library
             </span>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.9] mt-6 mb-8">
+            <h1 className="text-5xl md:text-7xl lg:text-7xl font-display font-bold leading-[0.9] mt-6 mb-8 break-words">
               <span className="block text-foreground">Curated</span>
               <span className="block text-secondary dark:text-gradient">
                 Experiences

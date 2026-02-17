@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import AboutScene from '../3d/AboutScene';
 
 const AboutHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -9,19 +8,10 @@ const AboutHero = () => {
     offset: ['start start', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
   return (
     <section ref={containerRef} className="relative min-h-screen flex items-center overflow-hidden">
-      {/* 3D Background */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ y, scale }}
-      >
-        <AboutScene />
-      </motion.div>
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background z-10" />
