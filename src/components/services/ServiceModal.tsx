@@ -128,6 +128,7 @@ const ServiceModal = ({ isOpen, onClose, service }: ServiceModalProps) => {
                 </motion.div>
 
                 {/* Features */}
+                {service.features.length > 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -164,6 +165,7 @@ const ServiceModal = ({ isOpen, onClose, service }: ServiceModalProps) => {
                     ))}
                   </div>
                 </motion.div>
+                )}
 
                 {/* Use Cases */}
                 <motion.div

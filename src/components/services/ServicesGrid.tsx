@@ -25,14 +25,7 @@ const services = [
       'High-octane gaming experiences featuring PlayStation, Xbox, racing simulators, and esports setups.',
     icon: Gamepad2,
     gradient: 'from-primary to-accent',
-    features: [
-      'PlayStation & Xbox Stations',
-      'Racing Simulators',
-      'VR Gaming Pods',
-      'Esports Tournament Setup',
-      'Retro Gaming Corners',
-      'Multiplayer Competitions',
-    ],
+    features: [],
     details:
       'Our gaming booths bring the excitement of competitive gaming to your events. From casual lounges to full-scale esports tournaments, we handle everything end-to-end.',
     useCases: [
@@ -51,14 +44,7 @@ const services = [
       'Next-gen AI-powered photo experiences that transform guests into works of art.',
     icon: Camera,
     gradient: 'from-secondary to-primary',
-    features: [
-      'AI Style Transfer',
-      'Real-time Face Morphing',
-      'Branded AR Filters',
-      'Instant Social Sharing',
-      'Print-on-Demand',
-      'Data Analytics',
-    ],
+    features: [],
     details:
       'Our AI photo booths use advanced machine learning to generate stunning, personalized visuals in real time.',
     useCases: [
@@ -77,14 +63,7 @@ const services = [
       'Immersive augmented and virtual reality installations that blur the line between digital and physical.',
     icon: Glasses,
     gradient: 'from-accent to-neon-pink',
-    features: [
-      'Mixed Reality Installations',
-      'Virtual Try-On',
-      'Interactive Product Demos',
-      'Immersive Brand Worlds',
-      'AR Wayfinding',
-      'Virtual Tours',
-    ],
+    features: [],
     details:
       'From virtual fashion showrooms to immersive product demos, our AR/VR solutions redefine audience engagement.',
     useCases: [
@@ -103,14 +82,7 @@ const services = [
       'Mind-bending naked-eye 3D illusions on LED walls that stop people in their tracks.',
     icon: Monitor,
     gradient: 'from-neon-cyan to-secondary',
-    features: [
-      'Naked-Eye 3D',
-      'Custom Content Creation',
-      'Interactive Triggers',
-      'Real-time Rendering',
-      'Multi-surface Mapping',
-      'Brand Integration',
-    ],
+    features: [],
     details:
       'Our anamorphic displays create viral, jaw-dropping visuals perfect for high-impact brand moments.',
     useCases: [
@@ -128,14 +100,7 @@ const services = [
       'Professional-grade green screen setups for cinematic photo and video content.',
     icon: LayoutGrid,
     gradient: 'from-primary to-secondary',
-    features: [
-      'Real-time Compositing',
-      'Virtual Backgrounds',
-      'Instant Playback',
-      'Social Media Ready',
-      'Custom Environments',
-      'Professional Lighting',
-    ],
+    features: [],
     details:
       'Create impossible environments with studio-quality chroma setups designed for instant content delivery.',
     useCases: [
@@ -153,14 +118,7 @@ const services = [
       'Cinematic brand videos designed for maximum emotional impact.',
     icon: Video,
     gradient: 'from-accent to-primary',
-    features: [
-      'Cinematic Production',
-      '4K / 8K Output',
-      'Motion Graphics',
-      'Sound Design',
-      'Live Event Sync',
-      'Multi-screen Delivery',
-    ],
+    features: [],
     details:
       'From subtle teasers to explosive reveals, we craft cinematic brand moments.',
     useCases: [
@@ -178,14 +136,7 @@ const services = [
       'Dynamic logo animations that bring brand identities to life.',
     icon: Sparkles,
     gradient: 'from-secondary to-accent',
-    features: [
-      '3D Logo Design',
-      'Particle Effects',
-      'Holographic Renders',
-      'LED Wall Optimized',
-      'Loop Animations',
-      'Multi-format Export',
-    ],
+    features: [],
     details:
       'Your logo, reimagined in motion for every digital and physical touchpoint.',
     useCases: [
@@ -203,14 +154,7 @@ const services = [
       'End-to-end event technology installations with flawless execution.',
     icon: Settings,
     gradient: 'from-neon-pink to-accent',
-    features: [
-      'LED Walls',
-      'Sound Systems',
-      'Lighting Rigs',
-      'Interactive Kiosks',
-      'Stage Technology',
-      'Technical Support',
-    ],
+    features: [],
     details:
       'We manage every technical detail to ensure seamless event execution.',
     useCases: [
@@ -228,13 +172,7 @@ const services = [
       'Epic speaker introductions that set the tone for impact.',
     icon: Mic,
     gradient: 'from-primary to-neon-cyan',
-    features: [
-      'Custom Motion Graphics',
-      'Voice-over Integration',
-      'Live Graphics',
-      'Synchronized Audio',
-      'Multi-screen Support',
-    ],
+    features: [],
     details:
       'Make every speaker entrance feel powerful and unforgettable.',
     useCases: [
@@ -251,13 +189,7 @@ const services = [
       'Dramatic reveal experiences for destinations and venues.',
     icon: Map,
     gradient: 'from-secondary to-primary',
-    features: [
-      'Cinematic Flythroughs',
-      'Interactive Maps',
-      '360° Experiences',
-      'Drone Footage',
-      'Virtual Tours',
-    ],
+    features: [],
     details:
       'Build anticipation with immersive destination reveal experiences.',
     useCases: [
@@ -274,13 +206,7 @@ const services = [
       'Stunning 3D trophy reveals and award ceremony visuals.',
     icon: Trophy,
     gradient: 'from-accent to-secondary',
-    features: [
-      '3D Trophy Modeling',
-      'Reveal Animations',
-      'Winner Graphics',
-      'Category Transitions',
-      'LED Wall Content',
-    ],
+    features: [],
     details:
       'Elevate award moments with cinematic trophy reveals.',
     useCases: [
@@ -297,13 +223,7 @@ const services = [
       'Mesmerizing looped animations for digital standees and displays.',
     icon: Clapperboard,
     gradient: 'from-neon-pink to-primary',
-    features: [
-      'Seamless Loops',
-      'Portrait Optimized',
-      'Ambient Motion',
-      'Brand Integration',
-      'Multi-size Export',
-    ],
+    features: [],
     details:
       'Hypnotic loop animations designed for continuous brand presence.',
     useCases: [

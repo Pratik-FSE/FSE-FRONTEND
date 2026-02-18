@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const ServicesHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -84,28 +85,32 @@ const ServicesHero = () => {
             className="mt-16 flex flex-wrap justify-center gap-4"
           >
             {[
-              'Gaming',
-              'AI Photo',
-              'AR/VR',
-              'Displays',
-              'Video',
-              'Tech Setup',
+              { label: 'Visual Displays', sectionId: 'visual-displays' },
+              { label: 'Brand Activations', sectionId: 'brand-activations' },
+              { label: 'Gaming & Interactive', sectionId: 'gaming-interactive' },
+              { label: 'AR & Visual Experiences', sectionId: 'ar-visual-experiences' },
             ].map((category, index) => (
-              <motion.span
-                key={category}
+              <motion.div
+                key={category.sectionId}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7 + index * 0.1 }}
-                className="
-                  px-5 py-2 rounded-full text-sm font-body
-                  glass text-hero-muted
-                  hover:text-primary
-                  border border-transparent
-                  transition-all duration-300 cursor-default
-                "
               >
-                {category}
-              </motion.span>
+                <Link to={`/experiences#${category.sectionId}`}>
+                  <span
+                    className="
+                      inline-block
+                      px-5 py-2 rounded-full text-sm font-body
+                      glass text-hero-muted
+                      hover:text-primary
+                      border border-transparent
+                      transition-all duration-300 cursor-pointer
+                    "
+                  >
+                    {category.label}
+                  </span>
+                </Link>
+              </motion.div>
             ))}
           </motion.div>
         </div>
@@ -116,7 +121,7 @@ const ServicesHero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-content"
+        className="absolute bottom-2 left-1/2 -translate-x-1/2 z-content"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
