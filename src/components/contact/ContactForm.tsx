@@ -207,7 +207,7 @@ const ContactForm = () => {
             {[
               { icon: Mail, label: 'Email', value: 'pratikbindworks@gmail.com' },
               { icon: Phone, label: 'Phone', value: '+91 91670 94424' },
-              { icon: MapPin, label: 'Location', value: 'Bangalore, India' },
+              { icon: MapPin, label: 'Location', value: 'Mumbai, India' },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-6">
                 <item.icon className="w-6 h-6 text-primary" />

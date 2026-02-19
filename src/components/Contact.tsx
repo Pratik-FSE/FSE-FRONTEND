@@ -135,7 +135,7 @@ const Contact = () => {
               {[
                 { icon: Mail, label: 'Email', value: 'pratikbindworks@gmail.com', href: 'mailto:pratikbindworks@gmail.com', color: 'primary' },
                 { icon: Phone, label: 'Phone', value: '+91 91670 94424', href: 'tel:+919167094424', color: 'secondary' },
-                { icon: MapPin, label: 'Location', value: 'Bangalore, India', href: null, color: 'accent' },
+                { icon: MapPin, label: 'Location', value: 'Mumbai, India', href: null, color: 'accent' },
               ].map((contact, index) => (
                 <motion.a
                   key={contact.label}

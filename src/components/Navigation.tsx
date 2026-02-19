@@ -11,8 +11,6 @@ const navItems = [
   { label: 'About', href: '/about', isRoute: true },
   { label: 'Services', href: '/services', isRoute: true },
   { label: 'Portfolio', href: '/portfolio', isRoute: true },
-  { label: 'Experiences', href: '/experiences', isRoute: true },
-  { label: 'Technology', href: '/technology', isRoute: true },
   { label: 'Clients', href: '/clients', isRoute: true },
   { label: 'Contact', href: '/contact', isRoute: true },
 ];

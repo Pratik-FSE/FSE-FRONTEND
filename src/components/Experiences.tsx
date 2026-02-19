@@ -309,7 +309,7 @@ const Experiences = () => {
         {/* CTA */}
         <div className="text-center">
           <motion.button
-            onClick={() => navigate('/experiences')}
+            onClick={() => navigate('/services')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full glass border border-primary/30 hover:border-secondary transition-all"

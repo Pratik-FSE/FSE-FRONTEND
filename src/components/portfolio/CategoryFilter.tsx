@@ -4,12 +4,12 @@ import { Link, useLocation } from 'react-router-dom';
 
 /** Portfolio filter id -> Experiences page path (with optional hash) */
 const categoryLinks: { id: string; label: string; to: string }[] = [
-  { id: 'all', label: 'All', to: '/experiences' },
-  { id: 'ar-vr', label: 'AR/VR', to: '/experiences#ar-visual-experiences' },
-  { id: 'gaming', label: 'Gaming', to: '/experiences#gaming-interactive' },
-  { id: 'photo-booth', label: 'Photo Booths', to: '/experiences#ar-visual-experiences' },
-  { id: 'displays', label: 'Displays', to: '/experiences#visual-displays' },
-  { id: 'installations', label: 'Installations', to: '/experiences#visual-displays' },
+  { id: 'all', label: 'All', to: '/services' },
+  { id: 'ar-vr', label: 'AR/VR', to: '/services#ar-visual-experiences' },
+  { id: 'gaming', label: 'Gaming', to: '/services#gaming-interactive' },
+  { id: 'photo-booth', label: 'Photo Booths', to: '/services#ar-visual-experiences' },
+  { id: 'displays', label: 'Displays', to: '/services#visual-displays' },
+  { id: 'installations', label: 'Installations', to: '/services#visual-displays' },
 ];
 
 interface CategoryFilterProps {
@@ -20,7 +20,7 @@ const CategoryFilter = ({ onFilterChange }: CategoryFilterProps) => {
   const { theme } = useTheme();
   const location = useLocation();
   const currentPath = location.pathname + location.hash;
-  const isOnExperiencesPage = location.pathname === '/experiences';
+  const isOnServicesPage = location.pathname === '/services';
 
   return (
     <motion.div
@@ -30,8 +30,8 @@ const CategoryFilter = ({ onFilterChange }: CategoryFilterProps) => {
       className="flex flex-wrap justify-center gap-4 py-8"
     >
       {categoryLinks.map((category) => {
-        const isActive = isOnExperiencesPage
-          ? currentPath === category.to || (category.to === '/experiences' && !location.hash)
+        const isActive = isOnServicesPage
+          ? currentPath === category.to || (category.to === '/services' && !location.hash)
           : category.id === 'all';
         return (
           <Link

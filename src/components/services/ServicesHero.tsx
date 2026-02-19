@@ -96,7 +96,7 @@ const ServicesHero = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7 + index * 0.1 }}
               >
-                <Link to={`/experiences#${category.sectionId}`}>
+                <Link to={`/services#${category.sectionId}`}>
                   <span
                     className="
                       inline-block

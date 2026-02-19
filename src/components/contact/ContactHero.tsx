@@ -1,27 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { Float, MeshDistortMaterial, Icosahedron } from '@react-three/drei';
-
-const FloatingShape = () => {
-  return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-      <Icosahedron args={[2, 1]}>
-        <MeshDistortMaterial
-          color="#8b5cf6"
-          emissive="#8b5cf6"
-          emissiveIntensity={0.35}
-          distort={0.3}
-          speed={2}
-          roughness={0.25}
-          metalness={0.6}
-          transparent
-          opacity={0.7}
-        />
-      </Icosahedron>
-    </Float>
-  );
-};
 
 const ContactHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -39,14 +17,9 @@ const ContactHero = () => {
       ref={containerRef}
       className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
     >
-      {/* 3D Background */}
+      {/* Decorative background (3D removed) */}
       <div className="absolute right-0 top-0 w-1/2 h-full hidden lg:block z-canvas">
-        <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-          <ambientLight intensity={0.8} />
-          <pointLight position={[10, 10, 10]} intensity={1.2} />
-          <pointLight position={[-10, -10, 5]} intensity={0.8} />
-          <FloatingShape />
-        </Canvas>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-transparent" />
       </div>
 
       {/* Overlay */}

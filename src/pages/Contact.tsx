@@ -69,7 +69,7 @@ const Contact = () => {
                 className="absolute bottom-8 left-8 glass rounded-xl px-6 py-4"
               >
                 <div className="text-sm text-muted-foreground">Headquarters</div>
-                <div className="text-lg font-display font-semibold">Bangalore, India</div>
+                <div className="text-lg font-display font-semibold">Mumbai, India</div>
               </motion.div>
             </div>
           </div>

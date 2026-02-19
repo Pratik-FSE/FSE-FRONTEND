@@ -10,17 +10,8 @@ const footerLinks = {
     { label: 'About', href: '/about' },
     { label: 'Services', href: '/services' },
     { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Experiences', href: '/experiences' },
-    { label: 'Technology', href: '/technology' },
     { label: 'Clients', href: '/clients' },
     { label: 'Contact', href: '/contact' },
-  ],
-  services: [
-    'AR Photo Booth',
-    'AI Snap Art',
-    'Gaming Zones',
-    'LED Walls',
-    'Custom Installations',
   ],
   social: [
     { label: 'Instagram', href: '#', icon: Instagram },
@@ -43,9 +34,9 @@ const Footer = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-muted/10 to-transparent" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
-          <div className="lg:col-span-2 space-y-5">
+          <div className="lg:col-span-1 space-y-5">
             <Link to="/">
               <motion.div
                 className="inline-block"
@@ -91,24 +82,6 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Services */}
-          <div className="space-y-4">
-            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Services</h4>
-            <nav className="flex flex-col gap-2.5">
-              {footerLinks.services.map((service) => (
-                <motion.button
-                  key={service}
-                  onClick={() => navigate('/services')}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 text-left w-fit"
-                  whileHover={{ x: 3 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {service}
-                </motion.button>
-              ))}
-            </nav>
-          </div>
-
           {/* Social Links */}
           <div className="space-y-4">
             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Connect</h4>
@@ -133,8 +106,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground flex items-center gap-1.5 flex-wrap justify-center md:justify-start">
+        <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-center gap-4">
+          <p className="text-sm text-muted-foreground flex items-center gap-1.5 flex-wrap justify-center">
             <span>© {currentYear} Fullscreen Experiences.</span>
             <span className="flex items-center gap-1">
               Made with 
@@ -147,20 +120,6 @@ const Footer = () => {
               for amazing events.
             </span>
           </p>
-          
-          <div className="flex flex-wrap gap-6 justify-center md:justify-end">
-            {['Privacy Policy', 'Terms of Service', 'Cookies'].map((link) => (
-              <motion.a
-                key={link}
-                href="#"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 whitespace-nowrap"
-                whileHover={{ y: -1 }}
-                transition={{ duration: 0.2 }}
-              >
-                {link}
-              </motion.a>
-            ))}
-          </div>
         </div>
       </div>
     </footer>

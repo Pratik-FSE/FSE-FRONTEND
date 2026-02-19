@@ -3,9 +3,8 @@ import CustomCursor from '@/components/CustomCursor';
 import Navigation from '@/components/Navigation';
 import AboutHero from '@/components/about/AboutHero';
 import BrandManifesto from '@/components/about/BrandManifesto';
-import Timeline from '@/components/about/Timeline';
 import Values from '@/components/about/Values';
-import Team from '@/components/about/Team';
+import Founder from '@/components/about/Founder';
 import Footer from '@/components/Footer';
 
 const About = () => {
@@ -21,9 +20,8 @@ const About = () => {
       <main>
         <AboutHero />
         <BrandManifesto />
-        <Timeline />
         <Values />
-        <Team />
+        <Founder />
       </main>
       
       <Footer />
