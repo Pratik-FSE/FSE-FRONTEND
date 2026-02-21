@@ -8,7 +8,7 @@ import { useTheme } from '@/contexts/ThemeContext';
 const footerLinks = {
   pages: [
     { label: 'About', href: '/about' },
-    { label: 'Services', href: '/services' },
+    { label: 'Services', href: '/portfolio' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Clients', href: '/clients' },
     { label: 'Contact', href: '/contact' },

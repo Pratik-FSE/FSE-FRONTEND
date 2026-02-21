@@ -186,6 +186,23 @@ app.get('/api/services', (req, res) => {
   res.status(200).json(normalized);
 });
 
+// Combined portfolio endpoint: returns projects and services together
+app.get('/api/portfolio', (req, res) => {
+  const projectItems = readJSON('projects.json', []);
+  const clientItems = readJSON('clients.json', []);
+  const clientsById = new Map(
+    clientItems.map((client) => [client.id, client.name]).filter((entry) => entry[0] && entry[1])
+  );
+  const normalizedProjects = projectItems.map((item, index) =>
+    normalizeProject(item, index, clientsById)
+  );
+
+  const serviceItems = readJSON('services.json', []);
+  const normalizedServices = serviceItems.map((item, index) => normalizeService(item, index));
+
+  res.status(200).json({ projects: normalizedProjects, services: normalizedServices });
+});
+
 // Contact endpoint
 app.post(
   '/api/contact',

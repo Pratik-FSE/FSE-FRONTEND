@@ -158,7 +158,7 @@ const Hero = () => {
             {/* CTAs */}
             <div className="flex flex-wrap gap-4">
               <motion.button
-                onClick={() => navigate('/services')}
+                onClick={() => navigate('/portfolio')}
                 className="
                   px-8 py-4 rounded-full
                   bg-primary text-primary-foreground

@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import Services from "./pages/Services";
+import { Navigate } from 'react-router-dom';
 import Portfolio from "./pages/Portfolio";
 import Clients from "./pages/Clients";
 import Contact from "./pages/Contact";
@@ -24,7 +24,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
+            <Route path="/services" element={<Navigate to="/portfolio" replace />} />
             <Route path="/portfolio" element={<Portfolio />} />
             {/* Experiences merged into Services; Technology page removed */}
             <Route path="/clients" element={<Clients />} />

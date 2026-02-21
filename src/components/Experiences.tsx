@@ -8,6 +8,12 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
+import quizGameVideo from '@/assets/quiz game av linkedin.mp4';
+import fruitCutterVideo from '@/assets/fruit cutter game av linkedin.mp4';
+import kinectGameVideo from '@/assets/kinect game av linkedin.mp4';
+import pepsiArVideo from '@/assets/Pepsi AR booth video.mp4';
+import arPhotoBoothVideo from '@/assets/AR Photo Booth Reel.mp4';
+import aiVideoBoothVideo from '@/assets/Ai video booth video.mp4';
 
 interface Experience {
   id: string;
@@ -28,7 +34,7 @@ const experiences: Experience[] = [
       'Interactive quiz game experience powered by audio-visual technology for maximum engagement.',
     color: 'primary',
     gradient: 'from-primary to-accent',
-    videoSrc: '/4.mp4',
+    videoSrc: quizGameVideo,
   },
   {
     id: 'fruit-cutter',
@@ -38,7 +44,7 @@ const experiences: Experience[] = [
       'Fast-paced fruit cutter game with immersive audio-visual feedback for dynamic events.',
     color: 'secondary',
     gradient: 'from-secondary to-primary',
-    videoSrc: '/1.mp4',
+    videoSrc: fruitCutterVideo,
   },
   {
     id: 'kinect-game',
@@ -48,7 +54,7 @@ const experiences: Experience[] = [
       'Body-tracking motion game experience using Kinect technology for interactive engagement.',
     color: 'accent',
     gradient: 'from-accent to-secondary',
-    videoSrc: '/2.mp4',
+    videoSrc: kinectGameVideo,
   },
   {
     id: 'pepsi-ar',
@@ -58,7 +64,7 @@ const experiences: Experience[] = [
       'Branded augmented reality booth experience creating viral-worthy moments.',
     color: 'primary',
     gradient: 'from-primary to-secondary',
-    videoSrc: '/6.mp4',
+    videoSrc: pepsiArVideo,
   },
   {
     id: 'ar-photo-booth',
@@ -68,7 +74,7 @@ const experiences: Experience[] = [
       'Cutting-edge AR photo booth creating instant shareable content with custom filters.',
     color: 'secondary',
     gradient: 'from-secondary to-accent',
-    videoSrc: '/3.mp4',
+    videoSrc: arPhotoBoothVideo,
   },
   {
     id: 'ai-video-booth',
@@ -78,7 +84,7 @@ const experiences: Experience[] = [
       'AI-powered video booth transforming guests into artistic creations in real-time.',
     color: 'accent',
     gradient: 'from-accent to-primary',
-    videoSrc: '/5.mp4',
+    videoSrc: aiVideoBoothVideo,
   },
 ];
 
@@ -245,7 +251,7 @@ const Experiences = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden">
+    <section id="experiences" ref={sectionRef} className="relative py-32 overflow-hidden">
       <motion.div
         className="absolute inset-0 bg-background"
         style={{ y: backgroundY }}
@@ -309,7 +315,7 @@ const Experiences = () => {
         {/* CTA */}
         <div className="text-center">
           <motion.button
-            onClick={() => navigate('/services')}
+            onClick={() => navigate('/portfolio')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full glass border border-primary/30 hover:border-secondary transition-all"

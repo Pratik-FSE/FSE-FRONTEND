@@ -1,23 +1,18 @@
 import { motion } from 'framer-motion';
 import { Linkedin, Twitter, Award, Globe, Users, Mail, MapPin, Calendar } from 'lucide-react';
 
-// Single founder data - you can edit this
+// Founder data (updated)
 const founder = {
-  name: 'Alexandra Chen', // You can change this
-  role: 'Founder & Creative Director',
-  image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&h=1000&fit=crop',
-  bio: 'Visionary leader with 15+ years in experiential design, blending fashion aesthetics with cutting-edge technology to create unforgettable brand moments.',
-  quote: "We're not just creating events; we're engineering emotions that resonate long after the lights go down.",
-  achievements: [
-    { icon: Award, label: '20+ Industry Awards' },
-    { icon: Globe, label: '15 Countries' },
-    { icon: Users, label: '500+ Events' },
-  ],
+  name: 'Pratik Bind',
+  role: 'Founder',
+  image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&h=1000&fit=crop',
+  bio: 'Founder focused on crafting immersive event technology and strategic brand experiences that connect people and moments.',
+  quote: "To build immersive experiences that make brands unforgettable.",
+  achievements: [],
   expertise: [
-    'Experiential Marketing',
-    'AR/VR Integration',
-    'Creative Direction',
-    'Brand Strategy'
+    'Experiential Technology',
+    'Interactive Installations',
+    'Technical Product Design'
   ]
 };
 

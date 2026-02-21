@@ -1,6 +1,7 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, X, Play } from 'lucide-react';
+import { fetchJSON } from '@/lib/api';
 
 interface Project {
   id: number;
@@ -12,6 +13,7 @@ interface Project {
   stats: { label: string; value: string }[];
   color: string;
   size: 'large' | 'medium' | 'small';
+  videoUrl: string | null;
 }
 
 interface ApiProject {
@@ -25,6 +27,25 @@ interface ApiProject {
   date?: string;
   location?: string;
   stats?: { label?: string; value?: string | number }[];
+  videoUrl?: string | null;
+}
+
+function toPlayableVideoUrl(url?: string | null) {
+  if (!url || typeof url !== 'string') return null;
+  const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/]+)\//i);
+  if (driveMatch?.[1]) {
+    return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+  }
+
+  // YouTube support: watch, short, or embed links
+  const ytWatch = url.match(/[?&]v=([^&]+)/i);
+  const ytShort = url.match(/youtu\.be\/([^?&/]+)/i);
+  const ytEmbed = url.match(/youtube\.com\/embed\/([^?&/]+)/i);
+  const ytId = ytWatch?.[1] || ytShort?.[1] || ytEmbed?.[1];
+  if (ytId) {
+    return `https://www.youtube.com/embed/${ytId}`;
+  }
+  return url;
 }
 
 const projectColors = [
@@ -59,15 +80,15 @@ const ProjectCard = ({
   const [isHovered, setIsHovered] = useState(false);
 
   const sizeClasses = {
-    large: 'col-span-2 row-span-2',
-    medium: 'col-span-1 row-span-2',
+    large: 'col-span-2 row-span-1',
+    medium: 'col-span-1 row-span-1',
     small: 'col-span-1 row-span-1',
   };
 
   const heightClasses = {
-    large: 'h-[600px]',
-    medium: 'h-[500px]',
-    small: 'h-[280px]',
+    large: 'h-[420px]',
+    medium: 'h-[340px]',
+    small: 'h-[260px]',
   };
 
   return (
@@ -89,6 +110,15 @@ const ProjectCard = ({
           dark:bg-gradient-to-br dark:${project.color} dark:opacity-20 dark:group-hover:opacity-40
         `}
       />
+
+      {project.videoUrl && (
+        <iframe
+          className="absolute inset-0 w-full h-full rounded-2xl opacity-30 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none"
+          src={`${project.videoUrl}${project.videoUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1&controls=0&loop=1&playlist=1`}
+          title={`${project.title} preview`}
+          allow="autoplay; encrypted-media; picture-in-picture"
+        />
+      )}
 
       {/* Card */}
       <div className="absolute inset-0 glass rounded-2xl overflow-hidden border border-border/40 dark:border-border">
@@ -195,11 +225,21 @@ const ProjectModal = ({
       >
         <div className="flex-1 relative overflow-hidden">
           <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-30`} />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-24 h-24 rounded-full bg-foreground/10 flex items-center justify-center">
-              <Play className="w-10 h-10 text-foreground" />
+          {project.videoUrl ? (
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src={`${project.videoUrl}${project.videoUrl.includes('?') ? '&' : '?'}autoplay=1`}
+              title={project.title}
+              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allowFullScreen
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-24 h-24 rounded-full bg-foreground/10 flex items-center justify-center">
+                <Play className="w-10 h-10 text-foreground" />
+              </div>
             </div>
-          </div>
+          )}
           <div className="absolute inset-0 noise-overlay" />
         </div>
 
@@ -249,7 +289,6 @@ const ProjectModal = ({
 };
 
 const PortfolioGrid = () => {
-  const apiBase = (import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '');
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -261,12 +300,7 @@ const PortfolioGrid = () => {
       setError(null);
 
       try {
-        const response = await fetch(`${apiBase}/api/projects`);
-        if (!response.ok) {
-          throw new Error('Failed to load projects');
-        }
-
-        const data = (await response.json()) as ApiProject[];
+        const data = (await fetchJSON('/api/projects')) as ApiProject[];
         if (!Array.isArray(data)) {
           throw new Error('Invalid projects response');
         }
@@ -308,6 +342,7 @@ const PortfolioGrid = () => {
                   : [{ label: 'Impact', value: 'N/A' }],
               color: projectColors[index % projectColors.length],
               size: projectSizes[index % projectSizes.length],
+              videoUrl: toPlayableVideoUrl(project.videoUrl),
             };
           })
         );
@@ -324,7 +359,7 @@ const PortfolioGrid = () => {
     };
 
     fetchProjects();
-  }, [apiBase]);
+  }, []);
 
   return (
     <section className="py-32 px-4 md:px-8 lg:px-16">

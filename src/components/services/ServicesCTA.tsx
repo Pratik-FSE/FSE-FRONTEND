@@ -1,8 +1,24 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ServicesCTA = () => {
+  const navigate = useNavigate();
+
+  const goToExperiences = () => {
+    const el = document.getElementById('experiences');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    // navigate to home with hash then attempt to scroll after navigation
+    navigate('/#experiences');
+    setTimeout(() => {
+      const el2 = document.getElementById('experiences');
+      if (el2) el2.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  };
+
   return (
     <section className="relative py-32 md:py-48 overflow-hidden bg-white dark:bg-background">
       {/* Animated background */}
@@ -129,23 +145,22 @@ const ServicesCTA = () => {
             </Link>
 
             {/* Secondary CTA */}
-            <Link to="/#projects">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="
-                  px-8 py-4 rounded-full font-display font-bold text-lg
-                  border border-blue-600 text-blue-600
-                  hover:border-orange-500 hover:text-orange-500
-                  dark:border-primary/50 dark:text-foreground
-                  dark:hover:bg-primary/10
-                  transition-colors
-                "
-                data-cursor-hover
-              >
-                View Our Work
-              </motion.button>
-            </Link>
+            <motion.button
+              onClick={goToExperiences}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="
+                px-8 py-4 rounded-full font-display font-bold text-lg
+                border border-blue-600 text-blue-600
+                hover:border-orange-500 hover:text-orange-500
+                dark:border-primary/50 dark:text-foreground
+                dark:hover:bg-primary/10
+                transition-colors
+              "
+              data-cursor-hover
+            >
+              View Our Work
+            </motion.button>
           </motion.div>
         </div>
       </div>

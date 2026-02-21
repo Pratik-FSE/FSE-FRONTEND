@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import ServiceCard from './ServiceCard';
 import ServiceModal from './ServiceModal';
+import { fetchJSON } from '@/lib/api';
 
 interface ServiceItem {
   id: string;
@@ -32,6 +33,11 @@ interface ApiService {
   id?: string;
   title?: string;
   summary?: string;
+}
+
+interface PortfolioResponse {
+  projects?: unknown[];
+  services?: ApiService[];
 }
 
 const serviceIcons = [
@@ -65,7 +71,6 @@ const serviceGradients = [
 ];
 
 const ServicesGrid = () => {
-  const apiBase = (import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '');
   const [services, setServices] = useState<ServiceItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,18 +82,23 @@ const ServicesGrid = () => {
       setError(null);
 
       try {
-        const response = await fetch(`${apiBase}/api/services`);
-        if (!response.ok) {
-          throw new Error('Failed to load services');
+        // Prefer the combined portfolio endpoint; fall back to /api/services
+        let servicesData: ApiService[] = [];
+        try {
+          const data = (await fetchJSON('/api/portfolio')) as PortfolioResponse;
+          if (data && Array.isArray(data.services)) servicesData = data.services;
+        } catch (e) {
+          // ignore and fallback
         }
 
-        const data = (await response.json()) as ApiService[];
-        if (!Array.isArray(data)) {
-          throw new Error('Invalid services response');
+        if (!servicesData.length) {
+          const alt = await fetchJSON('/api/services');
+          if (!Array.isArray(alt)) throw new Error('Invalid services response');
+          servicesData = alt as ApiService[];
         }
 
         setServices(
-          data.map((service, index) => {
+          servicesData.map((service, index) => {
             const summary = service.summary || '';
             return {
               id: service.id || `service-${index + 1}`,
@@ -113,7 +123,7 @@ const ServicesGrid = () => {
     };
 
     fetchServices();
-  }, [apiBase]);
+  }, []);
 
   return (
     <section className="relative py-32 overflow-hidden">

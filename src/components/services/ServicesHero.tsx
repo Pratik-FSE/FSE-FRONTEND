@@ -77,42 +77,7 @@ const ServicesHero = () => {
             we craft technology that transforms events into legends.
           </motion.p>
 
-          {/* Service categories */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-16 flex flex-wrap justify-center gap-4"
-          >
-            {[
-              { label: 'Visual Displays', sectionId: 'visual-displays' },
-              { label: 'Brand Activations', sectionId: 'brand-activations' },
-              { label: 'Gaming & Interactive', sectionId: 'gaming-interactive' },
-              { label: 'AR & Visual Experiences', sectionId: 'ar-visual-experiences' },
-            ].map((category, index) => (
-              <motion.div
-                key={category.sectionId}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.7 + index * 0.1 }}
-              >
-                <Link to={`/services#${category.sectionId}`}>
-                  <span
-                    className="
-                      inline-block
-                      px-5 py-2 rounded-full text-sm font-body
-                      glass text-hero-muted
-                      hover:text-primary
-                      border border-transparent
-                      transition-all duration-300 cursor-pointer
-                    "
-                  >
-                    {category.label}
-                  </span>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
+          {/* Service categories removed per request */}
         </div>
       </motion.div>
 

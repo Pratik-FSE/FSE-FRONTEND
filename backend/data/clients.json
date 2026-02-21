@@ -2,7 +2,7 @@
   {
     "id": "client-1",
     "name": "Example Client",
-    "logoUrl": "/public/logo-example.png",
+    "logoUrl": "/placeholder.svg",
     "testimonial": "They do great work"
   }
 ]

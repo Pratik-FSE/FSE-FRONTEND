@@ -23,6 +23,8 @@ Endpoints
 - `GET /api/projects/:slug` — returns single project by slug (404 if missing).
 - `GET /api/clients` — returns normalized clients (reads `data/clients.json`).
 - `GET /api/services` — returns normalized services (reads `data/services.json`).
+- `GET /api/services` — returns normalized services (reads `data/services.json`).
+- `GET /api/portfolio` — returns combined normalized `projects` and `services` (reads `data/projects.json` and `data/services.json`).
 - `POST /api/contact` — accepts JSON payload: { name, email, message, phone?, city?, eventType?, budget?, subject? }.
 	- Validates `name`, `email`, `message` server-side.
 	- Tries to send email with SendGrid if `SENDGRID_API_KEY` and `SENDGRID_FROM` are set.
