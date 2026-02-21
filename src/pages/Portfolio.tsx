@@ -3,7 +3,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PortfolioHero from '@/components/portfolio/PortfolioHero';
 import PortfolioGrid from '@/components/portfolio/PortfolioGrid';
-import PortfolioSlider from '@/components/portfolio/PortfolioSlider';
+// PortfolioSlider removed per request
 import ServicesHero from '@/components/services/ServicesHero';
 import ServicesGrid from '@/components/services/ServicesGrid';
 import ServicesCTA from '@/components/services/ServicesCTA';
@@ -27,8 +27,7 @@ const Portfolio = () => {
         {/* Grid Section */}
         <PortfolioGrid />
 
-        {/* Horizontal Slider */}
-        <PortfolioSlider />
+        {/* Horizontal Slider removed */}
 
         {/* Services CTA (merged) */}
         <ServicesCTA />

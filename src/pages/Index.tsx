@@ -3,7 +3,7 @@ import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import Experiences from '@/components/Experiences';
 import Showreel from '@/components/Showreel';
-import Projects from '@/components/Projects';
+// Projects section removed per request
 import Process from '@/components/Process';
 import Testimonials from '@/components/Testimonials';
 import Contact from '@/components/Contact';
@@ -29,8 +29,7 @@ const Index = () => {
         {/* Showreel Section */}
         <Showreel />
         
-        {/* Projects / Case Studies */}
-        <Projects />
+        {/* Projects / Case Studies removed */}
         
         {/* Process Section */}
         <Process />
