@@ -1,0 +1,14 @@
+[
+  {
+    "id": "example-project",
+    "title": "Example Project",
+    "slug": "example-project",
+    "summary": "A short summary of the example project.",
+    "categories": ["branding", "motion"],
+    "clientId": "client-1",
+    "images": ["/public/example-1.jpg"],
+    "videoUrl": null,
+    "date": "2024-01-01",
+    "metadata": {}
+  }
+]

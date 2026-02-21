@@ -1,22 +1,27 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const clients = [
-  { name: 'Gemini Hydraulics', industry: 'Manufacturing', events: 12, gradient: 'from-primary to-accent' },
-  { name: 'Chopra Audio Visuals', industry: 'Media', events: 8, gradient: 'from-secondary to-primary' },
-  { name: 'Cigma Events', industry: 'Events', events: 24, gradient: 'from-accent to-secondary' },
-  { name: 'BOI', industry: 'Banking', events: 18, gradient: 'from-neon-cyan to-secondary' },
-  { name: 'Shobiz', industry: 'Entertainment', events: 15, gradient: 'from-primary to-neon-pink' },
-  { name: 'TechXP', industry: 'Technology', events: 10, gradient: 'from-accent to-primary' },
-  { name: 'Sound.com', industry: 'Audio', events: 14, gradient: 'from-secondary to-accent' },
-  { name: 'Streamvent', industry: 'Events', events: 6, gradient: 'from-neon-pink to-primary' },
-  { name: 'Tagglabs', industry: 'Technology', events: 9, gradient: 'from-secondary to-neon-cyan' },
-  { name: 'Event Elephants', industry: 'Events', events: 11, gradient: 'from-primary to-secondary' },
-  { name: 'Pentagon Events', industry: 'Events', events: 7, gradient: 'from-accent to-neon-cyan' },
-  { name: 'Tribes Communications', industry: 'Marketing', events: 13, gradient: 'from-neon-pink to-accent' },
+interface Client {
+  name: string;
+  industry: string;
+  events: number;
+  gradient: string;
+}
+
+interface ApiClient {
+  name?: string;
+}
+
+const gradients = [
+  'from-primary to-accent',
+  'from-secondary to-primary',
+  'from-accent to-secondary',
+  'from-neon-cyan to-secondary',
+  'from-primary to-neon-pink',
+  'from-accent to-primary',
 ];
 
-const ClientCard = ({ client, index }: { client: typeof clients[0]; index: number }) => {
+const ClientCard = ({ client, index }: { client: Client; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const [isHovered, setIsHovered] = useState(false);
@@ -100,6 +105,48 @@ const ClientCard = ({ client, index }: { client: typeof clients[0]; index: numbe
 };
 
 const ClientGrid = () => {
+  const apiBase = (import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '');
+  const [clients, setClients] = useState<Client[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`${apiBase}/api/clients`);
+        if (!response.ok) {
+          throw new Error('Failed to load clients');
+        }
+
+        const data = (await response.json()) as ApiClient[];
+        if (!Array.isArray(data)) {
+          throw new Error('Invalid clients response');
+        }
+
+        setClients(
+          data.map((item, index) => ({
+            name: item.name || 'Client',
+            industry: 'Partner',
+            events: index + 1,
+            gradient: gradients[index % gradients.length],
+          }))
+        );
+      } catch (fetchError) {
+        setError(
+          fetchError instanceof Error ? fetchError.message : 'Failed to load clients'
+        );
+        setClients([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchClients();
+  }, [apiBase]);
+
   return (
     <section className="py-32 px-4 md:px-8 lg:px-16">
       <motion.div
@@ -117,9 +164,16 @@ const ClientGrid = () => {
       </motion.div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {clients.map((client, index) => (
-          <ClientCard key={client.name} client={client} index={index} />
-        ))}
+        {isLoading && <p className="col-span-full text-muted-foreground">Loading clients...</p>}
+        {!isLoading && error && <p className="col-span-full text-destructive">{error}</p>}
+        {!isLoading && !error && clients.length === 0 && (
+          <p className="col-span-full text-muted-foreground">No clients available.</p>
+        )}
+        {!isLoading &&
+          !error &&
+          clients.map((client, index) => (
+            <ClientCard key={`${client.name}-${index}`} client={client} index={index} />
+          ))}
       </div>
     </section>
   );

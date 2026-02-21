@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Send, CheckCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { fetchJSON } from '../../lib/api';
 
 const eventTypes = [
   'Corporate Event',
@@ -21,16 +22,47 @@ const budgetRanges = [
 ];
 
 const ContactForm = () => {
+  
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    console.log('Form submitted:', Object.fromEntries(formData));
-    setIsSubmitted(true);
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: String(formData.get('name') ?? '').trim(),
+      email: String(formData.get('email') ?? '').trim(),
+      phone: String(formData.get('phone') ?? '').trim(),
+      city: String(formData.get('city') ?? '').trim(),
+      eventType: String(formData.get('eventType') ?? '').trim(),
+      budget: String(formData.get('budget') ?? '').trim(),
+      message: String(formData.get('message') ?? '').trim(),
+    };
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      await fetchJSON('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      setIsSubmitted(true);
+      e.currentTarget.reset();
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : 'Unable to send your message. Please try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClasses =
@@ -178,11 +210,15 @@ const ContactForm = () => {
                 />
 
                 {/* Submit */}
+                {submitError && (
+                  <p className="text-sm text-destructive">{submitError}</p>
+                )}
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full py-5 rounded-full bg-gradient-to-r from-primary via-accent to-secondary text-primary-foreground font-semibold text-lg"
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             )}

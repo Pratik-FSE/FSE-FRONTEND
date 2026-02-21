@@ -1,0 +1,8 @@
+[
+  {
+    "id": "client-1",
+    "name": "Example Client",
+    "logoUrl": "/public/logo-example.png",
+    "testimonial": "They do great work"
+  }
+]

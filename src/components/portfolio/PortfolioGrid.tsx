@@ -1,5 +1,5 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, X, Play } from 'lucide-react';
 
 interface Project {
@@ -14,92 +14,35 @@ interface Project {
   size: 'large' | 'medium' | 'small';
 }
 
-const projects: Project[] = [
-  {
-    id: 1,
-    title: 'Lakme Fashion Week',
-    category: 'AR Photo Booth',
-    client: 'Lakme India',
-    location: 'Mumbai',
-    year: '2024',
-    stats: [
-      { label: 'Footfall', value: '50K+' },
-      { label: 'Engagement', value: '85%' },
-      { label: 'Shares', value: '12K' },
-    ],
-    color: 'from-primary to-accent',
-    size: 'large',
-  },
-  {
-    id: 2,
-    title: 'Tech Summit',
-    category: 'Gaming Zone',
-    client: 'Microsoft',
-    location: 'Bangalore',
-    year: '2024',
-    stats: [
-      { label: 'Players', value: '8K+' },
-      { label: 'Hours', value: '2000+' },
-    ],
-    color: 'from-secondary to-primary',
-    size: 'medium',
-  },
-  {
-    id: 3,
-    title: 'Neon Nights',
-    category: 'LED Installation',
-    client: 'Red Bull',
-    location: 'Delhi',
-    year: '2023',
-    stats: [
-      { label: 'Attendees', value: '25K' },
-      { label: 'Social Reach', value: '2M+' },
-    ],
-    color: 'from-accent to-secondary',
-    size: 'small',
-  },
-  {
-    id: 4,
-    title: 'Brand Launch',
-    category: 'Anamorphic Display',
-    client: 'Nike',
-    location: 'Mumbai',
-    year: '2024',
-    stats: [
-      { label: 'Views', value: '500K+' },
-      { label: 'PR Value', value: '₹5Cr' },
-    ],
-    color: 'from-primary to-secondary',
-    size: 'small',
-  },
-  {
-    id: 5,
-    title: 'Music Festival',
-    category: 'AI Photo Booth',
-    client: 'Sunburn',
-    location: 'Goa',
-    year: '2024',
-    stats: [
-      { label: 'Photos', value: '100K+' },
-      { label: 'Downloads', value: '45K' },
-    ],
-    color: 'from-secondary to-accent',
-    size: 'medium',
-  },
-  {
-    id: 6,
-    title: 'Product Reveal',
-    category: 'Holographic Display',
-    client: 'Apple',
-    location: 'Delhi',
-    year: '2024',
-    stats: [
-      { label: 'VIP Guests', value: '500+' },
-      { label: 'Media Coverage', value: '200+' },
-    ],
-    color: 'from-accent to-primary',
-    size: 'large',
-  },
+interface ApiProject {
+  id?: number | string;
+  title?: string;
+  categories?: string[];
+  category?: string;
+  clientId?: string;
+  client?: string;
+  clientName?: string;
+  date?: string;
+  location?: string;
+  stats?: { label?: string; value?: string | number }[];
+}
+
+const projectColors = [
+  'from-primary to-accent',
+  'from-secondary to-primary',
+  'from-accent to-secondary',
+  'from-primary to-secondary',
+  'from-secondary to-accent',
+  'from-accent to-primary',
+];
+
+const projectSizes: Project['size'][] = [
+  'large',
+  'medium',
+  'small',
+  'small',
+  'medium',
+  'large',
 ];
 
 const ProjectCard = ({
@@ -174,9 +117,9 @@ const ProjectCard = ({
 
             <div className="flex gap-4 text-sm text-muted-foreground">
               <span>{project.client}</span>
-              <span>•</span>
+              <span>&bull;</span>
               <span>{project.location}</span>
-              <span>•</span>
+              <span>&bull;</span>
               <span>{project.year}</span>
             </div>
 
@@ -275,7 +218,10 @@ const ProjectModal = ({
           </h2>
 
           <div className="flex gap-6 text-muted-foreground mb-12">
-            <span>{project.client}</span>•<span>{project.location}</span>•
+            <span>{project.client}</span>
+            <span>&bull;</span>
+            <span>{project.location}</span>
+            <span>&bull;</span>
             <span>{project.year}</span>
           </div>
 
@@ -303,7 +249,82 @@ const ProjectModal = ({
 };
 
 const PortfolioGrid = () => {
+  const apiBase = (import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '');
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`${apiBase}/api/projects`);
+        if (!response.ok) {
+          throw new Error('Failed to load projects');
+        }
+
+        const data = (await response.json()) as ApiProject[];
+        if (!Array.isArray(data)) {
+          throw new Error('Invalid projects response');
+        }
+
+        setProjects(
+          data.map((project, index) => {
+            const rawDate = typeof project.date === 'string' ? project.date : '';
+            const parsedDate = rawDate ? new Date(rawDate) : null;
+            const year =
+              parsedDate && !Number.isNaN(parsedDate.getTime())
+                ? String(parsedDate.getFullYear())
+                : 'N/A';
+            const categories = Array.isArray(project.categories)
+              ? project.categories
+              : [];
+            const stats = Array.isArray(project.stats)
+              ? project.stats
+                  .filter((item) => item && item.label && item.value !== undefined)
+                  .map((item) => ({
+                    label: String(item.label),
+                    value: String(item.value),
+                  }))
+              : [];
+
+            return {
+              id: index + 1,
+              title: project.title || 'Untitled Project',
+              category: categories[0] || project.category || 'Experiential',
+              client:
+                project.client ||
+                project.clientName ||
+                project.clientId ||
+                'Client',
+              location: project.location || 'TBD',
+              year,
+              stats:
+                stats.length > 0
+                  ? stats
+                  : [{ label: 'Impact', value: 'N/A' }],
+              color: projectColors[index % projectColors.length],
+              size: projectSizes[index % projectSizes.length],
+            };
+          })
+        );
+      } catch (fetchError) {
+        setError(
+          fetchError instanceof Error
+            ? fetchError.message
+            : 'Failed to load projects'
+        );
+        setProjects([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, [apiBase]);
 
   return (
     <section className="py-32 px-4 md:px-8 lg:px-16">
@@ -322,14 +343,21 @@ const PortfolioGrid = () => {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min">
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            index={index}
-            onSelect={() => setSelectedProject(project)}
-          />
-        ))}
+        {isLoading && <p className="text-muted-foreground">Loading projects...</p>}
+        {!isLoading && error && <p className="text-destructive">{error}</p>}
+        {!isLoading && !error && projects.length === 0 && (
+          <p className="text-muted-foreground">No projects available.</p>
+        )}
+        {!isLoading &&
+          !error &&
+          projects.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onSelect={() => setSelectedProject(project)}
+            />
+          ))}
       </div>
 
       <AnimatePresence>
