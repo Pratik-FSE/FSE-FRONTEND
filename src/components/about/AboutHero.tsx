@@ -66,39 +66,7 @@ const AboutHero = () => {
             </motion.h1>
           </div>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-12 text-xl md:text-2xl text-muted-foreground max-w-2xl font-body leading-relaxed"
-          >
-            Where fashion meets technology. We craft immersive experiences that 
-            transform events into unforgettable moments of wonder.
-          </motion.p>
-
-          {/* Stats preview */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-16 flex gap-12 md:gap-20"
-          >
-            {[
-              { value: '500+', label: 'Events' },
-              { value: '50+', label: 'Brands' },
-              { value: '1M+', label: 'Experiences' },
-            ].map((stat, index) => (
-              <div key={stat.label} className="group">
-                <div className="font-display text-4xl md:text-5xl font-bold text-gradient group-hover:text-glow transition-all duration-300">
-                  {stat.value}
-                </div>
-                <div className="text-muted-foreground text-sm mt-2 font-body tracking-wide">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
+          {/* Removed subtitle and stats per request */}
         </div>
       </motion.div>
 
