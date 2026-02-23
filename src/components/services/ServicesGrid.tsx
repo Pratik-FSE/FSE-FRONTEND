@@ -140,7 +140,7 @@ const ServicesGrid = () => {
             Full Spectrum
           </span>
           <h2 className="font-display text-4xl md:text-6xl font-bold mt-4">
-            <span className="text-gradient">12</span> Ways to Wow
+            <span className="text-gradient">2+</span> YEARS OF SERVICES
           </h2>
           <p className="mt-6 text-muted-foreground max-w-2xl mx-auto">
             Explore our complete range of experiential technology services.

@@ -2,7 +2,6 @@ import CustomCursor from '@/components/CustomCursor';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import Experiences from '@/components/Experiences';
-import Showreel from '@/components/Showreel';
 // Projects section removed per request
 import Process from '@/components/Process';
 import Testimonials from '@/components/Testimonials';
@@ -26,16 +25,10 @@ const Index = () => {
         {/* Experiences Section */}
         <Experiences />
         
-        {/* Showreel Section */}
-        <Showreel />
         
         {/* Projects / Case Studies removed */}
         
-        {/* Process Section */}
-        <Process />
-        
-        {/* Testimonials & Brands */}
-        <Testimonials />
+        {/* Showreel, Process, and Testimonials removed per request */}
         
         {/* Contact Form */}
         <Contact />

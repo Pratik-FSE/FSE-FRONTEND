@@ -2,14 +2,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
 const manifestoLines = [
-  { text: "We don't just create events.", highlight: false },
-  { text: "We engineer moments.", highlight: true },
-  { text: "We blend cutting-edge technology", highlight: false },
-  { text: "with haute couture aesthetics.", highlight: true },
-  { text: "Every pixel. Every interaction.", highlight: false },
-  { text: "Designed to captivate.", highlight: true },
-  { text: "This is experiential art.", highlight: false },
-  { text: "This is Fullscreen Experiences.", highlight: true },
+  { text: 'To build immersive experiences that make brands unforgettable.', highlight: true },
+  { text: 'This is experiential art.', highlight: true },
+  { text: 'This is Fullscreen Experiences.', highlight: true },
 ];
 
 const BrandManifesto = () => {

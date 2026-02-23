@@ -73,8 +73,7 @@ const ServicesHero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-10 text-xl md:text-2xl max-w-2xl mx-auto font-body leading-relaxed text-hero-muted"
           >
-            From immersive AR experiences to stunning visual productions,
-            we craft technology that transforms events into legends.
+            We design technology that turns events into experiences worth remembering. From custom apps and smart systems to interactive installations and AI tools, everything we build is tailored to the moment and the people in it.
           </motion.p>
 
           {/* Service categories removed per request */}

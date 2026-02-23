@@ -1,23 +1,9 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ServicesCTA = () => {
-  const navigate = useNavigate();
-
-  const goToExperiences = () => {
-    const el = document.getElementById('experiences');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-    // navigate to home with hash then attempt to scroll after navigation
-    navigate('/#experiences');
-    setTimeout(() => {
-      const el2 = document.getElementById('experiences');
-      if (el2) el2.scrollIntoView({ behavior: 'smooth' });
-    }, 300);
-  };
+  
 
   return (
     <section className="relative py-32 md:py-48 overflow-hidden bg-white dark:bg-background">
@@ -61,24 +47,7 @@ const ServicesCTA = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Icon */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: 'spring', damping: 15 }}
-            className="inline-flex mb-8"
-          >
-            <div
-              className="
-                w-20 h-20 rounded-2xl p-5
-                bg-blue-600 dark:bg-gradient-to-br dark:from-primary dark:to-accent
-                text-white
-              "
-            >
-              <Sparkles className="w-full h-full" />
-            </div>
-          </motion.div>
+          {/* Icon removed per request */}
 
           {/* Heading */}
           <motion.h2
@@ -144,23 +113,7 @@ const ServicesCTA = () => {
               </motion.button>
             </Link>
 
-            {/* Secondary CTA */}
-            <motion.button
-              onClick={goToExperiences}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="
-                px-8 py-4 rounded-full font-display font-bold text-lg
-                border border-blue-600 text-blue-600
-                hover:border-orange-500 hover:text-orange-500
-                dark:border-primary/50 dark:text-foreground
-                dark:hover:bg-primary/10
-                transition-colors
-              "
-              data-cursor-hover
-            >
-              View Our Work
-            </motion.button>
+            {/* Secondary CTA removed per request */}
           </motion.div>
         </div>
       </div>

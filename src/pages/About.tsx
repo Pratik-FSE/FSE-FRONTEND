@@ -4,7 +4,6 @@ import Navigation from '@/components/Navigation';
 import AboutHero from '@/components/about/AboutHero';
 import BrandManifesto from '@/components/about/BrandManifesto';
 import Values from '@/components/about/Values';
-import Founder from '@/components/about/Founder';
 import Footer from '@/components/Footer';
 
 const About = () => {
@@ -21,7 +20,6 @@ const About = () => {
         <AboutHero />
         <BrandManifesto />
         <Values />
-        <Founder />
       </main>
       
       <Footer />

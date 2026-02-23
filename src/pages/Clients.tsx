@@ -3,7 +3,6 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ClientsHero from '@/components/clients/ClientsHero';
 import LogoMarquee from '@/components/clients/LogoMarquee';
-import ClientGrid from '@/components/clients/ClientGrid';
 import TestimonialSlider from '@/components/clients/TestimonialSlider';
 import { motion } from 'framer-motion';
 
@@ -16,7 +15,6 @@ const Clients = () => {
       <main>
         <ClientsHero />
         <LogoMarquee />
-        <ClientGrid />
         <TestimonialSlider />
         
         {/* CTA Section */}

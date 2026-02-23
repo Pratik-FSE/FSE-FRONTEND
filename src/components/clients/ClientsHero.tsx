@@ -91,15 +91,7 @@ const ClientsHero = () => {
           <span className="text-gradient">Empowered</span>
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto"
-        >
-          From Fortune 500 companies to emerging startups, we've partnered with 
-          visionary brands to create unforgettable experiences.
-        </motion.p>
+        {/* paragraph removed per request */}
       </motion.div>
     </section>
   );
