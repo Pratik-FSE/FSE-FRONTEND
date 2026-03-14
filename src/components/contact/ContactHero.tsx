@@ -17,24 +17,20 @@ const ContactHero = () => {
       ref={containerRef}
       className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
     >
-      {/* Decorative background (3D removed) */}
       <div className="absolute right-0 top-0 w-1/2 h-full hidden lg:block z-canvas">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-transparent" />
       </div>
 
-      {/* Overlay */}
       <motion.div
         style={{ opacity }}
         className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-transparent z-overlay"
       />
 
-      {/* Content */}
       <motion.div
         style={{ y }}
         className="relative z-content w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-16"
       >
         <div className="max-w-2xl">
-          {/* Status pill */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -51,7 +47,6 @@ const ContactHero = () => {
             </span>
           </motion.div>
 
-          {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -63,7 +58,6 @@ const ContactHero = () => {
             <span className="text-gradient">Magic</span>
           </motion.h1>
 
-          {/* Subtext */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

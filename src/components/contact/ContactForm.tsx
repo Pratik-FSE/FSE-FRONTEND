@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Send, CheckCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { CheckCircle, Mail, Phone, MapPin } from 'lucide-react';
 import { fetchJSON } from '../../lib/api';
 
 const eventTypes = [
@@ -22,7 +22,6 @@ const budgetRanges = [
 ];
 
 const ContactForm = () => {
-  
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -72,8 +71,6 @@ const ContactForm = () => {
     <section ref={ref} className="py-32 px-4 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16">
-
-          {/* ================= FORM BOX ================= */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -88,7 +85,6 @@ const ContactForm = () => {
               shadow-[0_40px_120px_-40px_hsl(var(--primary)_/_0.15)]
             "
           >
-            {/* subtle top glow */}
             <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
             {isSubmitted ? (
@@ -114,7 +110,6 @@ const ContactForm = () => {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8">
-                {/* Name & Email */}
                 <div className="grid md:grid-cols-2 gap-8">
                   {['name', 'email'].map((field, i) => (
                     <motion.div
@@ -141,7 +136,6 @@ const ContactForm = () => {
                   ))}
                 </div>
 
-                {/* Phone & City */}
                 <div className="grid md:grid-cols-2 gap-8">
                   {['phone', 'city'].map((field, i) => (
                     <motion.div
@@ -167,7 +161,6 @@ const ContactForm = () => {
                   ))}
                 </div>
 
-                {/* Event Type */}
                 <div>
                   <label className="block text-sm text-muted-foreground mb-4">
                     Event Type
@@ -184,7 +177,6 @@ const ContactForm = () => {
                   </div>
                 </div>
 
-                {/* Budget */}
                 <div>
                   <label className="block text-sm text-muted-foreground mb-4">
                     Approximate Budget
@@ -201,7 +193,6 @@ const ContactForm = () => {
                   </div>
                 </div>
 
-                {/* Message */}
                 <textarea
                   name="message"
                   rows={4}
@@ -209,7 +200,6 @@ const ContactForm = () => {
                   className={`${inputClasses} resize-none`}
                 />
 
-                {/* Submit */}
                 {submitError && (
                   <p className="text-sm text-destructive">{submitError}</p>
                 )}
@@ -224,7 +214,6 @@ const ContactForm = () => {
             )}
           </motion.div>
 
-          {/* ================= CONTACT INFO ================= */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}

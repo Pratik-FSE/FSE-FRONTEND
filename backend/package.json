@@ -2,10 +2,10 @@
   "name": "neon-flux-backend",
   "version": "0.1.0",
   "private": true,
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "engines": {
     "node": ">=18"

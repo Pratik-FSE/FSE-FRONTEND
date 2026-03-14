@@ -2,8 +2,7 @@ import CustomCursor from '@/components/CustomCursor';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ContactHero from '@/components/contact/ContactHero';
-import ContactForm from '@/components/contact/ContactForm';
-import { motion } from 'framer-motion';
+import ContactDetailsBlock from '@/components/contact/ContactDetailsBlock';
 
 const Contact = () => {
   return (
@@ -13,7 +12,7 @@ const Contact = () => {
       
       <main>
         <ContactHero />
-        <ContactForm />
+        <ContactDetailsBlock />
         
         {/* Map removed per request */}
       </main>
