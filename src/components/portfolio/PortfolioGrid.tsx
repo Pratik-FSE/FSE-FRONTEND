@@ -21,6 +21,7 @@ interface ApiProject {
   title?: string;
   categories?: string[];
   category?: string;
+  videoId?: string | number;
   clientId?: string;
   client?: string;
   clientName?: string;
@@ -29,6 +30,9 @@ interface ApiProject {
   stats?: { label?: string; value?: string | number }[];
   videoUrl?: string | null;
 }
+
+const getEmbedUrl = (videoId?: string | number | null) =>
+  videoId ? `https://drive.google.com/file/d/${String(videoId)}/preview` : null;
 
 function toPlayableVideoUrl(url?: string | null) {
   if (!url || typeof url !== 'string') return null;
@@ -277,11 +281,6 @@ const ProjectModal = ({
               </div>
             ))}
           </div>
-
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            An immersive experiential activation that transformed the event space
-            into a multisensory journey.
-          </p>
         </div>
       </motion.div>
     </motion.div>
@@ -325,6 +324,9 @@ const PortfolioGrid = () => {
                   }))
               : [];
 
+            const rawVideoUrl =
+              project.videoUrl ?? getEmbedUrl(project.videoId ?? null);
+
             return {
               id: index + 1,
               title: project.title || 'Untitled Project',
@@ -342,7 +344,7 @@ const PortfolioGrid = () => {
                   : [{ label: 'Impact', value: 'N/A' }],
               color: projectColors[index % projectColors.length],
               size: projectSizes[index % projectSizes.length],
-              videoUrl: toPlayableVideoUrl(project.videoUrl),
+              videoUrl: toPlayableVideoUrl(rawVideoUrl),
             };
           })
         );

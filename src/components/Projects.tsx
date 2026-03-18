@@ -192,18 +192,6 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             </div>
           </div>
 
-          {/* Description placeholder */}
-          <motion.p 
-            className="font-body text-muted-foreground leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            An immersive experience that combined cutting-edge technology with 
-            world-class design. Our installations engaged over 10,000 guests and 
-            generated millions of social media impressions, creating unforgettable 
-            brand moments.
-          </motion.p>
         </div>
       </motion.div>
     </motion.div>

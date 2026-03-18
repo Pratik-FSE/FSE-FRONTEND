@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { fetchJSON } from '@/lib/api';
 
 interface ApiClient {
   id?: string;
@@ -15,9 +16,7 @@ const LogoMarquee = () => {
     let mounted = true;
     const fetchClients = async () => {
       try {
-        const res = await fetch('/api/clients');
-        if (!res.ok) throw new Error('no-api');
-        const data = (await res.json()) as ApiClient[];
+        const data = (await fetchJSON('/api/clients')) as ApiClient[];
         if (!Array.isArray(data)) throw new Error('invalid');
         if (mounted) setClients(data);
         return;

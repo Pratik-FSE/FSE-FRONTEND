@@ -91,7 +91,7 @@ const Hero = () => {
           <div className="max-w-4xl">
             {/* Heading */}
             <motion.h1
-              className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] mb-6"
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] mb-6"
               variants={titleVariants}
               initial="hidden"
               animate="visible"

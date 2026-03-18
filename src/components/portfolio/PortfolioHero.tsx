@@ -121,7 +121,7 @@ const PortfolioHero = () => {
       >
         {/* Split title */}
         <div className="overflow-hidden mb-8">
-          <div className="flex justify-center flex-wrap">
+          <div className="flex justify-center flex-nowrap">
             {title.split('').map((letter, i) => (
               <motion.span
                 key={i}
@@ -130,7 +130,7 @@ const PortfolioHero = () => {
                 initial="hidden"
                 animate="visible"
                 className={`
-                  text-7xl md:text-9xl lg:text-[12rem]
+                  text-5xl md:text-7xl lg:text-[10rem]
                   font-display font-bold
                   ${
                     theme === 'dark'

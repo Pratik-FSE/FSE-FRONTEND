@@ -70,7 +70,10 @@ const Footer = () => {
               {footerLinks.pages.map((link) => (
                 <motion.button
                   key={link.label}
-                  onClick={() => navigate(link.href)}
+                  onClick={() => {
+                    navigate(link.href);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 text-left w-fit group flex items-center gap-1"
                   whileHover={{ x: 3 }}
                   transition={{ duration: 0.2 }}
