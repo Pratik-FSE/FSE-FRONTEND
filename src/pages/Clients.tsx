@@ -5,8 +5,11 @@ import ClientsHero from '@/components/clients/ClientsHero';
 import LogoMarquee from '@/components/clients/LogoMarquee';
 import TestimonialSlider from '@/components/clients/TestimonialSlider';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const Clients = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="relative min-h-screen bg-background overflow-x-hidden">
       <CustomCursor />
@@ -47,8 +50,12 @@ const Clients = () => {
               creating unforgettable experiences together.
             </motion.p>
             
-            <motion.a
-              href="/contact"
+            <motion.button
+              type="button"
+              onClick={() => {
+                navigate('/contact');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -64,7 +71,7 @@ const Clients = () => {
               >
                 →
               </motion.span>
-            </motion.a>
+            </motion.button>
           </div>
         </motion.section>
       </main>

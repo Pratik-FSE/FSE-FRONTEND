@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowUpRight, Heart, Instagram, Twitter, Linkedin, Youtube } from 'lucide-react';
 import logoLight from '@/assets/logo-light.png';
 import logoDark from '@/assets/logo-dark.jpg';
@@ -8,7 +8,6 @@ import { useTheme } from '@/contexts/ThemeContext';
 const footerLinks = {
   pages: [
     { label: 'About', href: '/about' },
-    { label: 'Services', href: '/portfolio' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Clients', href: '/clients' },
     { label: 'Contact', href: '/contact' },
@@ -24,6 +23,7 @@ const footerLinks = {
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const navigate = useNavigate();
+  const location = useLocation();
   const { theme } = useTheme();
   
   const currentLogo = theme === 'dark' ? logoDark : logoLight;
@@ -77,7 +77,9 @@ const Footer = () => {
                 <motion.button
                   key={link.label}
                   onClick={() => {
-                    navigate(link.href);
+                    if (location.pathname !== link.href) {
+                      navigate(link.href);
+                    }
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 text-left w-fit group flex items-center gap-1"
