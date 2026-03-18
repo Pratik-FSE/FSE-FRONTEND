@@ -62,7 +62,13 @@ const Navigation = () => {
       >
         <nav className="container mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/">
+          <button
+            type="button"
+            onClick={() => {
+              navigate('/');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
             <motion.div
               className="relative overflow-hidden"
               whileHover={{ scale: 1.05 }}
@@ -82,7 +88,7 @@ const Navigation = () => {
                 />
               </AnimatePresence>
             </motion.div>
-          </Link>
+          </button>
 
           {/* DESKTOP NAV */}
           <div className="hidden lg:flex items-center gap-1">

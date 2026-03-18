@@ -37,7 +37,13 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1 space-y-5">
-            <Link to="/">
+            <button
+              type="button"
+              onClick={() => {
+                navigate('/');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               <motion.div
                 className="inline-block"
                 whileHover={{ scale: 1.03 }}
@@ -56,7 +62,7 @@ const Footer = () => {
                   />
                 </AnimatePresence>
               </motion.div>
-            </Link>
+            </button>
             
             <p className="text-sm leading-relaxed text-muted-foreground max-w-sm">
               Transforming events into unforgettable digital experiences through cutting-edge technology and creative innovation.

@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ServicesCTA = () => {
-  
+  const navigate = useNavigate();
 
   return (
     <section className="relative py-32 md:py-48 overflow-hidden bg-white dark:bg-background">
@@ -90,28 +90,30 @@ const ServicesCTA = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             {/* Primary CTA */}
-            <Link to="/contact">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="
-                  px-8 py-4 rounded-full font-display font-bold text-lg
-                  flex items-center justify-center gap-3
-                  bg-blue-600 text-white
-                  hover:bg-orange-500
-                  transition-colors shadow-lg
-                "
-                data-cursor-hover
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                navigate('/contact');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="
+                px-8 py-4 rounded-full font-display font-bold text-lg
+                flex items-center justify-center gap-3
+                bg-blue-600 text-white
+                hover:bg-orange-500
+                transition-colors shadow-lg
+              "
+              data-cursor-hover
+            >
+              Book a Consultation
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
               >
-                Book a Consultation
-                <motion.div
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <ArrowRight size={20} />
-                </motion.div>
-              </motion.button>
-            </Link>
+                <ArrowRight size={20} />
+              </motion.div>
+            </motion.button>
 
             {/* Secondary CTA removed per request */}
           </motion.div>

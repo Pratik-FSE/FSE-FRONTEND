@@ -97,6 +97,7 @@ const Hero = () => {
               animate="visible"
             >
               <span className="block text-foreground overflow-hidden">
+                <span className="inline-block whitespace-nowrap">
                 {'Immersive Tech'.split('').map((letter, i) => (
                   <motion.span
                     key={i}
@@ -106,6 +107,7 @@ const Hero = () => {
                     {letter === ' ' ? '\u00A0' : letter}
                   </motion.span>
                 ))}
+                </span>
               </span>
 
               <span className="block mt-2">
