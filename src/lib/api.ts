@@ -1,17 +1,7 @@
-type ViteMeta = ImportMeta & {
-  env?: {
-    VITE_API_URL?: string;
-    VITE_API_BASE?: string; // backwards-compat
-    VITE_API_URL_FALLBACK?: string;
-  };
-};
+import { appConfig } from "@/config/env";
 
-export const API_URL = (((import.meta as ViteMeta).env?.VITE_API_URL ||
-  (import.meta as ViteMeta).env?.VITE_API_BASE ||
-  '') as string).replace(/\/$/, '');
-
-const FALLBACK_API_URL = (((import.meta as ViteMeta).env?.VITE_API_URL_FALLBACK ||
-  'http://localhost:3000/api') as string).replace(/\/$/, '');
+export const API_URL = appConfig.api.baseUrl;
+const FALLBACK_API_URL = appConfig.api.fallbackUrl;
 
 function buildURLWithBase(base: string, path: string) {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
@@ -49,7 +39,7 @@ export async function fetchJSON(path: string, opts: RequestInit = {}) {
   try {
     ({ res, text, url } = await tryFetch(API_URL));
   } catch (e) {
-    // If prod domain is not reachable, fall back to localhost (dev convenience)
+    // Retry only when a secondary API base URL is explicitly configured.
     if (FALLBACK_API_URL && FALLBACK_API_URL !== API_URL) {
       ({ res, text, url } = await tryFetch(FALLBACK_API_URL));
     } else {
