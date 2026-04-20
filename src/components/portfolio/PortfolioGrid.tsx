@@ -116,12 +116,14 @@ const ProjectCard = ({
       />
 
       {project.videoUrl && (
-        <iframe
-          className="absolute inset-0 w-full h-full rounded-2xl opacity-30 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none"
-          src={`${project.videoUrl}${project.videoUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1&controls=0&loop=1&playlist=1`}
-          title={`${project.title} preview`}
-          allow="autoplay; encrypted-media; picture-in-picture"
-        />
+        <>
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-background/5 via-transparent to-background/30" />
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border/50 bg-background/70 backdrop-blur-md">
+              <Play className="h-6 w-6 text-foreground/80" />
+            </div>
+          </div>
+        </>
       )}
 
       {/* Card */}
