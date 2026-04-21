@@ -8,6 +8,13 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8000,
+    build: {
+    sourcemap: false,       // Disabling this saves a lot of RAM
+    cssCodeSplit: true,
+    rollupOptions: {
+      maxParallelFileOps: 2, // Reduce parallel processing to save memory
+    }
+  },
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
